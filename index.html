@@ -1,0 +1,200 @@
+<!-- ******************************************
+ * WEB222NGG
+ * Assignment 1
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: October, , 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ********************************************-->
+
+ <!DOCTYPE html>
+ <html>
+     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>WEB322 - Assignment 1</title>
+        <link rel="stylesheet" href="styles/styles.css">
+        <!-- using bootstrap for forms -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- using Font Awesome for social media icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+     </head>
+
+     <body>
+         <header>
+            <div class="background-img">
+                <!-- logo & navigation bar -->
+                <div class="container">
+                    <div class="header-line-wrapper">
+                        <div class="logo-wrapper">
+                            <a href="/">
+                                <img src="images/logo_8.JPG" atl="logo" width="100">
+                            </a>                            
+                        </div>
+                        
+                        <div class='nav-wrapper'>                   
+                            <div class="nav-link-wrapper">
+                                <a href="/">Home</a>
+                            </div>                            
+                            <div class="nav-link-wrapper">
+                                <a href="/rooms">Our Rooms</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/becomeahost">Become a host</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/signup">Sign Up</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/thankyou" data-toggle="modal" data-target="#modalLoginForm">Login</a>
+                            </div>           
+                        </div>
+                    </div>                  
+                </div>            
+                <!-- pop-up login -->
+                <div class="modal fade" id="modalLoginForm" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-header text-center">
+                            <h3 class="modal-title w-100 font-weight-bold">Login</h3>
+                            <button type="button" class="close" data-dismiss="modal"></button>
+                        </div>                       
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">                            
+                                <input type="text" id="username" class="form-control" placeholder="Username">                            
+                            </div>
+                            <div class="md-form mb-5">                            
+                                <input type="password" id="password" class="form-control" placeholder="Password">                            
+                            </div>
+                        </div>    
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-default">Login</button>
+                        </div>                                            
+                    </div>
+                </div> 
+                <!-- search bar -->
+                <div class="container">
+                    <div class="search-booking-form-container">
+                        <div class="search-booking-form-content">
+                            <h2> Book great places to stay</h2>
+                            <form class="form-wrapper" action="/rooms" method="GET">                            
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <label for="location">WHERE</label>
+                                        <input id="location" name="location" type="text" class="form-control" list="cities" placeholder="Where are you going?" tabindex="1">
+                                        <datalist id="cities">
+                                            <option value="Toronto"></option>
+                                            <option value="Edmonton"></option>
+                                            <option value="Hamilton"></option>
+                                            <option value="London"></option>
+                                            <option value="Mississauga"></option>
+                                            <option value="Brampton"></option>
+                                            <option value="Markham"></option>
+                                            <option value="Richmond Hill"></option>
+                                            <option value="Vancouver"></option>
+                                            <option value="Ottawa"></option>
+                                            <option value="Montreal"></option>
+                                            <option value="Calgary"></option>
+                                            <option value="Victoria"></option>
+                                            <option value="Quebec"></option>
+                                            <option value="Saskatoon"></option>
+                                        </datalist>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="check-in">CHECK-IN</label>
+                                        <input id="check-in" name="check-in" type="date" class="form-control" tabindex="2">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="checkout">CHECKOUT</label>
+                                        <input id="checkout" name="checkout" type="date" class="form-control" tabindex="3">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="guests">GUESTS</label>
+                                        <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="4">
+                                    </div>
+
+                                    <div class="form-group col-md-1">
+                                        <label for="search" class="button-label">Submit</label>                                       
+                                        <input name="search" type="submit" class="btn btn-secondary" id="search-bar-btn" tabindex="5" value="Search">                                                                               
+                                    </div>
+                                </div>      
+                            </form>
+                        </div>                    
+                    </div>               
+                </div>                 
+            <div>             
+         </header>
+
+         <main>                         
+            <div class="container">                                    
+                <img id="slide-banner" src="images/banner_2.JPG" alt="promotion banner" width=100%>                  
+            </div>
+            <div class="container">
+                <div class="content-wrapper">
+                    <div class="contain-img">
+                        <img src="images/img_8.jpg" alt="picture">
+                    </div>
+                    <div class="content-text-wrapper">
+                        <div class="content-text-title">
+                        <h3>MinBnB provides variety of choices</h3>
+                        </div>
+                        <div class="content-text">
+                            <p> <b>Wide Selection</b><br>
+                            Our hosts list many different kinds of properties—single rooms, a suite of rooms, apartments, moored yachts, houseboats, entire houses, even a castle—on the Minbnb website.
+                            </p>
+                            <p><b>Free Listings</b> <br>
+                                Hosts don’t have to pay to list their properties. Listings can include written descriptions, photographs with captions, and a user profile where potential guests can get to know a bit about the hosts.
+                            </p>
+                        </div>                         
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                 <div class="content-wrapper">
+                    <div class="contain-img">
+                        <img src="images/img_10.jpg" alt="picture">
+                     </div>
+                     <div class="content-text-wrapper">
+                         <div class="content-text-title">
+                            <h3>Enjoy the comfort of your "own house"</h3>
+                         </div>
+                         <div class="content-text">
+                            <p> <b>Entire Place</b><br>
+                                You will have the entire place to yourself. Feel free to enjoy your trip with the comfort of your own home. There are many choices you can consider, including cottage, lake-front cabin, suite, and many more.
+                                </p>
+                                <p><b>Great Amenities</b> <br>
+                                Enjoy great amenities just for you. You can have the access indoor swimming pool, wide backyard garden, gym, and free parking.
+                                </p>
+                         </div>                         
+                     </div>
+                 </div>
+             </div>
+         </main>
+
+         <footer>
+             <div class="background-img">
+                <div class="container">
+                    <div class="wrapper" id="contact">
+                        <h4>Contact Us</h4>
+                        <div class="icons">
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-twitter-square"></i>
+                            <i class="fab fa-instagram-square"></i>
+                        </div>
+                     </div>
+                    <div class="wrapper">                     
+                        <div class="copyright-wrapper">
+                            <small>&copy 2020  Thi My Phuc Huynh - Mindy</small>
+                        </div>                    
+                    </div> 
+                </div>
+             </div>                                    
+         </footer>
+         <!-- include scripts for slide banners -->
+         <script src="script.js"></script>
+     </body>
+ </html>

@@ -1,0 +1,141 @@
+<!-- ******************************************
+ * WEB222NGG
+ * Assignment 1
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: October 10 , 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ********************************************-->
+
+ <!DOCTYPE html>
+ <html>
+     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>WEB322 - Assignment 1</title>
+        <link rel="stylesheet" href="styles/styles.css">
+        <!-- using bootstrap for forms -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- using Font Awesome for social media icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>       
+     </head>
+
+     <body>
+         <header>
+            <div class="background-img">
+                <!-- logo & navigation bar -->
+                <div class="container">
+                    <div class="header-line-wrapper">
+                        <div class="logo-wrapper">
+                            <a href="/">
+                                <img src="images/logo_8.JPG" atl="logo" width="100">
+                            </a>
+                        </div>
+                        
+                        <div class='nav-wrapper'>                   
+                            <div class="nav-link-wrapper">
+                                <a href="/">Home</a>
+                            </div>                            
+                            <div class="nav-link-wrapper">
+                                <a href="/rooms">Our Rooms</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/becomeahost">Become a host</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/signup">Sign Up</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/thankyou" data-toggle="modal" data-target="#modalLoginForm">Login</a>
+                            </div>           
+                        </div>
+                    </div>                  
+                </div>            
+                <!-- pop-up login -->
+                <div class="modal fade" id="modalLoginForm" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Login</h3>
+                            <button type="button" class="close" data-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">                            
+                                <input type="text" id="username" class="form-control" placeholder="Username">                            
+                            </div>
+                            <div class="md-form mb-5">                            
+                                <input type="password" id="password" class="form-control" placeholder="Password">                            
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-default">Login</button>
+                        </div>
+                    </div>
+                </div>                              
+            </div>
+                 
+         </header>
+
+         <main>
+            <!-- registration form -->
+            <div class="become-host-bg">
+                <div class="container">
+                    <div class="register-form-container">
+                        <h3>BECOME A HOST</h3>                    
+                        <form class="form-wrapper" action="/thankyou" method="GET">
+                            <div class="form-group">
+                                <input id="address" name="address" type="text" class="form-control" placeholder="Addess" tabindex="1">
+                            </div>
+                            <div class="form-group">
+                                <input id="place-type" name="place-type" type="text" class="form-control" placeholder="Entire Place" list="type" tabindex="2">
+                                <datalist id="type">
+                                    <option value="Entire Place"></option>
+                                    <option value="Private Room"></option>
+                                    <option value="Share Room"></option>
+                                </datalist>
+                            </div>
+                            <div class="form-group">                            
+                                <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="4">
+                            </div> 
+                            <div class="form-group"                   >
+                                <textarea name="message" rows="5" cols="30" class="form-control">Describe more about your place.                   </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="image-uploaded">Upload images of your place</label>
+                                <input type="file" class="form-control-file" id="image-uploaded">
+                            </div>
+                            <div class="button">
+                                <button type="submit" class="btn btn-warning" tabindex="3">Start your listing</button>
+                            </div>
+                         </form>
+                     </div>
+                </div>
+            </div>                     
+         </main>
+
+         <footer>
+            <div class="background-img">
+               <div class="container">
+                   <div class="wrapper" id="contact">
+                       <h4>Contact Us</h4>
+                       <div class="icons">
+                           <i class="fab fa-facebook"></i>
+                           <i class="fab fa-twitter-square"></i>
+                           <i class="fab fa-instagram-square"></i>
+                       </div>
+                    </div>
+                   <div class="wrapper">                     
+                       <div class="copyright-wrapper">
+                           <small>&copy 2020  Thi My Phuc Huynh - Mindy</small>
+                       </div>                    
+                   </div> 
+               </div>
+            </div>                                    
+        </footer>
+     </body>
+ </html>

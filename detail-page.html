@@ -1,0 +1,183 @@
+<!-- ******************************************
+ * WEB222NGG
+ * Assignment 1
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: October 10, 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ********************************************-->
+
+ <!DOCTYPE html>
+ <html>
+     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>WEB322 - Assignment 1</title>
+        <link rel="stylesheet" href="styles/styles.css">
+        <!-- using bootstrap for forms -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- using Font Awesome for social media icon -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>       
+     </head>
+     <body>
+         <header>
+             <div class="background-img">
+                <!-- logo & navigation bar -->
+                <div class="container">
+                    <div class="header-line-wrapper">
+                        <div class="logo-wrapper">
+                            <a href="/">
+                                <img src="images/logo_8.JPG" atl="logo" width="100">
+                            </a>
+                        </div>
+                        
+                        <div class='nav-wrapper'>                   
+                            <div class="nav-link-wrapper">
+                                <a href="/">Home</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                 <a href="/becomeahost">Become a host</a>
+                             </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/rooms">Our Rooms</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/signup">Sign Up</a>
+                            </div>
+                            <div class="nav-link-wrapper">
+                                <a href="/thankyou" data-toggle="modal" data-target="#modalLoginForm">Login</a>
+                            </div>           
+                        </div>
+                    </div>                  
+                </div>            
+                <!-- pop-up login -->
+                <div class="modal fade" id="modalLoginForm" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Login</h3>
+                            <button type="button" class="close" data-dismiss="modal"></button>
+                        </div>
+ 
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">                            
+                                <input type="text" id="username" class="form-control" placeholder="Username">                            
+                            </div>
+                            <div class="md-form mb-5">                            
+                                <input type="password" id="password" class="form-control" placeholder="Password">                            
+                            </div>
+                        </div>
+ 
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-default">Login</button>
+                        </div>
+                    </div>
+                </div>                 
+             </div>
+         </header>
+         <main>
+             <!-- header bar section -->
+             <div class="container">
+                 <div class="detail-header">
+                     <h3>1 Bedroom Downtown North York</h3>
+                     <div class="sub-header-bar">
+                         <div class="rating-bar">
+                             <span><i class="fas fa-star"></i> 4.5 |</span>
+                             <span> <i class="fas fa-medal"></i> Super Host |</span>
+                             <span><a href="#"><i class="fas fa-map-marker-alt"></i> Toronto, Ontario, Canada</a></span>                                              
+                         </div>
+     
+                         <div class="save-bar">
+                             <span><a href="#"><i class="fas fa-share-square"></i> Share</a></span>
+                             <span><a href="#"><i class="far fa-heart"></i> Save</a></span>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+             <!-- room images section -->
+             <div class="container" id="room-img-container">
+                 <div class="room-img-wrapper">
+                     <img src="images/detail_1-1.webp" alt="detail-1" class="img-1">
+                     <img src="images/detail_1-2.webp" alt="detail-1" class="img-2">
+                     <img src="images/detail_1-3.webp" alt="detail-1" class="img-3">
+                     <img src="images/detail_1-4.webp" alt="detail-1" class="img-4">
+                     <img src="images/detail_1-5.webp" alt="detail-1" class="img-5">                                      
+                 </div>
+             </div>
+ 
+             <div class="container" id="two-columns">
+                 <div class="left-section">
+                     <div class="host-info">
+                         <div class="host-info-text">
+                             <h3>Private room in house hosted by Mindy</h3>
+                             <p> 2 guest | Room | 1 bed | 1 bath </p>
+                         </div>
+                         <div class="host-img">
+                             <a href="#"><img src="images/host_1.jpg" alt="host"></a>
+                         </div>
+                     </div>
+                     <div class="room-info">
+                         <hr>
+                         <div class="room-features">
+                             <h5><i class="fas fa-hand-sparkles"></i> Enhanced Clean</h5>
+                             <h5><i class="fas fa-door-open"></i> Self Check-in</h5>
+                             <h5><i class="far fa-calendar-times"></i> Cancellation Policy</h5>
+                         </div>
+                         <div class="room-desc"                        >
+                             <p>1 bedroom (basement) with private entrance and private bathroom, access to kitchenette (fridge. microwave, kettle, coffee maker, toaster, dishes and cutlery) and laundry, 1 parking space available. 5 minute walk to Yonge Sheppard subway. 2 minute drive to 401</p>
+                             <p><b>Other things to note</b><br>
+                                 I live in the house (upstairs) with my husband, young child and dog. You will probably hear us during the day (old house!) but we are very quiet after 8 pm :)
+                             </p>
+                         </div>                      
+                     </div>
+                 </div>
+                 <!-- Book Now From -->
+                 <div class="right-section">
+                     <div class="book-now-wrapper">
+                         <h3> Add dates for prices</h3>
+                         <form class="form-wrapper" action="/thankyou" method="get">                            
+                             <div class="form-group">
+                                 <label for="check-in">CHECK-IN</label>
+                                 <input id="check-in" name="check-in" type="date" class="form-control" tabindex="1">
+                             </div>
+                             <div class="form-group">
+                                 <label for="checkout">CHECKOUT</label>
+                                 <input id="checkout" name="checkout" type="date" class="form-control" tabindex="2">
+                             </div>                            
+                             <div class="form-group">
+                                 <label for="guests">GUESTS</label>
+                                 <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3">
+                             </div>
+                             <div class="form-group">                             
+                                 <input name="search" type="submit" class="btn" id="book-now-btn" tabindex="4" value="Book Now">
+                             </div>
+                         </form>
+                 </div>
+                                
+             </div>
+         </main>
+         <footer>
+             <div class="background-img">
+                <div class="container">
+                    <div class="wrapper" id="contact">
+                        <h4>Contact Us</h4>
+                        <div class="icons">
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-twitter-square"></i>
+                            <i class="fab fa-instagram-square"></i>
+                        </div>
+                     </div>
+                    <div class="wrapper">                     
+                        <div class="copyright-wrapper">
+                            <small>&copy 2020  Thi My Phuc Huynh - Mindy</small>
+                        </div>                    
+                    </div> 
+                </div>
+             </div>                                    
+         </footer>
+     </body>
+ </html>
