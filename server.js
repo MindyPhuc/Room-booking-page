@@ -17,7 +17,7 @@ function onHttpStart() {
     console.log("Express http server listening on: " + HTTP_PORT);
 }
 
-// static file
+// static files
 app.use(express.static("static"));
 
 // setup routes
@@ -47,3 +47,4 @@ app.get("/thankyou", function (req,res){
 
 // setup http server to listen on HTTP_PORT (setup listener)
 app.listen(HTTP_PORT, onHttpStart);
+
