@@ -34,7 +34,9 @@ body {
     color: #10375c !important;
     font-family: 'Roboto', sans-serif !important;
 }
-
+header, footer {
+    background-color: whitesmoke;    
+}
 .container {
     display: grid;
     grid-template-columns: 1fr;
@@ -187,9 +189,6 @@ body {
 }
 
 /* footer styles */
-footer {
-    background-color: whitesmoke;    
-}
 footer .container {
     padding: 1rem;
     display: flex;

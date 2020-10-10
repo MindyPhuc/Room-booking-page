@@ -3,9 +3,9 @@
 
         // set up slide banners
         const slide_images = [
-            '../images/banner_1.JPG',
-            '../images/banner_2.JPG',
-            '../images/banner_3.JPG'
+            'static/images/banner_1.JPG',
+            'static/images/banner_2.JPG',
+            'static/images/banner_3.JPG'
         ];
         let img = document.querySelector('#slide-banner');
         let currentImageIdx = 0;
