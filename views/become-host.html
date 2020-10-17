@@ -62,27 +62,40 @@
                 <div class="container">
                     <div class="form-container">
                         <h3>BECOME A HOST</h3>                    
-                        <form class="form-wrapper" action="/thankyou" method="GET">
+                        <form class="form-wrapper" action="/host" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input id="email" name="email" type="email" class="form-control" placeholder="Email Addess" tabindex="1" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input id="first-name" name="fName" type="text" class="form-control" placeholder="First Name" tabindex="2" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input id="last-name" name="lName" type="text" class="form-control" placeholder="Last Name" tabindex="3" required>
+                                </div>    
+                            </div>                                                   
                             <div class="form-group">
                                 <input id="address" name="address" type="text" class="form-control" placeholder="Address" tabindex="1" required>
                             </div>
-                            <div class="form-group">
-                                <input id="place-type" name="place-type" type="text" class="form-control" placeholder="Entire Place" list="type" tabindex="2" required>
-                                <datalist id="type">
-                                    <option value="Entire Place"></option>
-                                    <option value="Private Room"></option>
-                                    <option value="Shared Room"></option>
-                                </datalist>
-                            </div>
-                            <div class="form-group">                            
-                                <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="4" required>
-                            </div> 
+                            <div class='form-row'>
+                                <div class="form-group col-md-6">
+                                    <input id="place-type" name="placeType" type="text" class="form-control" placeholder="Entire Place" list="type" tabindex="2" required>
+                                    <datalist id="type">
+                                        <option value="Entire Place"></option>
+                                        <option value="Private Room"></option>
+                                        <option value="Shared Room"></option>
+                                    </datalist>
+                                </div>
+                                <div class="form-group col-md-6">                            
+                                    <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="4" required>
+                                </div> 
+                            </div>                            
                             <div class="form-group"                   >
-                                <textarea name="message" rows="5" cols="30" class="form-control">Describe more about your place.                   </textarea>
+                                <textarea rows="3" cols="30"  class="form-control" placeholder="Describe more about your place"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="image-uploaded">Upload images of your place</label>
-                                <input type="file" class="form-control-file" id="image-uploaded">
+                                <label for="photo">Upload images of your place</label>
+                                <input type="file" class="form-control-file" id="photo" name="photo">
                             </div>
                             <div class="button">
                                 <button type="submit" class="btn btn-warning" tabindex="3">Start your listing</button>
