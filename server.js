@@ -18,31 +18,35 @@ function onHttpStart() {
 }
 
 // static files
-app.use(express.static("static"));
+app.use(express.static("views"));
 
 // setup routes
 app.get("/", function(req,res){
-    res.sendFile(path.join(__dirname,"index.html"));
+    res.sendFile(path.join(__dirname,"views/index.html"));
 });
 
 app.get("/rooms", function (req,res){
-    res.sendFile(path.join(__dirname,"room-listing.html"));
+    res.sendFile(path.join(__dirname,"views/room-listing.html"));
 });
 
-app.get("/becomeahost", function (req,res){
-    res.sendFile(path.join(__dirname,"become-host.html"));
+app.get("/become-a-host", function (req,res){
+    res.sendFile(path.join(__dirname,"views/become-host.html"));
 });
 
 app.get("/signup", function (req,res){
-    res.sendFile(path.join(__dirname,"registration.html"));
+    res.sendFile(path.join(__dirname,"views/signup.html"));
 });
 
 app.get("/details", function (req,res){
-    res.sendFile(path.join(__dirname,"detail-page.html"));
+    res.sendFile(path.join(__dirname,"views/detail-page.html"));
+});
+
+app.get("/login", function (req,res){
+    res.sendFile(path.join(__dirname,"views/login.html"));
 });
 
 app.get("/thankyou", function (req,res){
-    res.sendFile(path.join(__dirname,"thank-you.html"));
+    res.sendFile(path.join(__dirname,"views/dashboard.html"));
 });
 
 // setup http server to listen on HTTP_PORT (setup listener)

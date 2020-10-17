@@ -3,7 +3,7 @@
  * Assignment 1
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: October, , 2020
+ * Date: October 24, 2020
  ********************************************
  * images from unsplash.com | canva.com
  ********************************************-->
@@ -41,42 +41,18 @@
                                 <a href="/">Home</a>
                             </div>
                             <div class="nav-link-wrapper">
-                                <a href="/becomeahost">Become a host</a>
+                                <a href="/become-a-host">Become a host</a>
                             </div>
                             <div class="nav-link-wrapper">
                                 <a href="/rooms">Our Rooms</a>
-                            </div>
+                            </div>                          
                             <div class="nav-link-wrapper">
                                 <a href="/signup">Sign Up</a>
-                            </div>
-                            <div class="nav-link-wrapper">
-                                <a href="/thankyou" data-toggle="modal" data-target="#modalLoginForm">Login</a>
                             </div>           
                         </div>
                     </div>                  
-                </div>            
-                <!-- pop-up login -->
-                <div class="modal fade" id="modalLoginForm" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Login</h3>
-                            <button type="button" class="close" data-dismiss="modal"></button>
-                        </div>
-
-                        <div class="modal-body mx-3">
-                            <div class="md-form mb-5">                            
-                                <input type="text" id="username" class="form-control" placeholder="Username">                            
-                            </div>
-                            <div class="md-form mb-5">                            
-                                <input type="password" id="password" class="form-control" placeholder="Password">                            
-                            </div>
-                        </div>
-
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-default">Login</button>
-                        </div>
-                    </div>
-                </div>                              
+                </div>           
+                                             
             </div>
                  
          </header>
@@ -84,33 +60,17 @@
          <main>
              <div id="sign-up-bg">
                 <div class="container">
-                    <div class="register-form-container">
-                        <h3>SIGN UP</h3>                     
-                        <form class="form-wrapper" action="/thankyou" method="GET">
+                    <div class="form-container">
+                        <h3>LOG IN</h3>                     
+                        <form class="form-wrapper" action="/login" method="GET">
                             <div class="form-group">
-                                <input id="email" name="email" type="email" class="form-control" placeholder="Email Addess" tabindex="1">
+                                <input id="username" name="username" type="text" class="form-control" placeholder="Username" tabindex="1" required>
                             </div>
                             <div class="form-group">
-                               <input id="first-name" name="first-name" type="text" class="form-control" placeholder="First Name" tabindex="2">
-                           </div>
-                           <div class="form-group">
-                               <input id="last-name" name="last-name" type="text" class="form-control" placeholder="Last Name" tabindex="3">
-                           </div>
-                           <div class="form-group">
-                               <input id="password" name="password" type="password" class="form-control" placeholder="Create a Password" tabindex="4">
-                           </div>
-                           <div class="form-group">                            
-                               <small id="birthday-help" class="form-text text-muted">To sign up you  need to be at least 18. We'll never share your birthday with anyone else.</small>
-                               <div class="form-row">                                
-                                   <input id="birthday" name="birthday" type="date" class="form-control" placeholder="Birthday" tabindex="5">
-                               </div>
-                               <div class="form-group">
-                                   <small id="reg-form-help" class="form-text text-muted">We'll send you marketing promotions, special offers, and policy update via email</small>
-                               </div>
-                               
-                           </div>
+                               <input id="password" name="password" type="password" class="form-control" placeholder="Password" tabindex="2" required>
+                           </div>                        
                            <div class="button">
-                               <button type="submit" class="btn btn-warning" tabindex="3">Sign up</button>
+                               <button type="submit" class="btn btn-warning" tabindex="3">Login</button>
                            </div>
                         </form>
                     </div>
