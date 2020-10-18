@@ -125,26 +125,11 @@ app.post("/signup", UPLOAD.single("email"), (req,res)=> {
 });
 
 // post for the login form
-app.post("/login", UPLOAD.single("username"), (req,res)=> {
-
-    const FORM_DATA = req.body;
-    
-    var emailRenter = {
-        from: 'tmphuynhweb322@gmail.com',
-        to: FORM_DATA.email,
-        subject: 'MinBnB - Successful Login',
-        html: '<p> Hello ' + FORM_DATA.username + ',' + 
-             '</p><p>Thank you for logging in MinBnB website</p>'
-    };
-    transporter.sendMail(emailRenter, (error, info) => {
-        if (error) {
-            console.log("ERROR: " + error);
-        } else {
-            console.log("SUCCESS: " + info.response);
-        }
-    });
+app.post("/login", (req,res)=> {   
     res.redirect('/dashboard');
 });
+
+
 // setup http server to listen on HTTP_PORT (setup listener)
 app.listen(HTTP_PORT, onHttpStart);
 

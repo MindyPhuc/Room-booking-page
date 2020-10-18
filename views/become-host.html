@@ -16,12 +16,11 @@
         <title>WEB322 - Assignment 1</title>
         <link rel="stylesheet" href="styles/styles.css">
         <!-- using bootstrap for forms -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">        
         <!-- using Font Awesome for social media icon -->
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>       
+        <!-- script for form validation -->
+        <script src="scripts/script.js"></script>
      </head>
 
      <body>
@@ -62,20 +61,33 @@
                 <div class="container">
                     <div class="form-container">
                         <h3>BECOME A HOST</h3>                    
-                        <form class="form-wrapper" action="/host" method="POST" enctype="multipart/form-data">
+                        <form class="needs-validation" action="/host" method="POST" enctype="multipart/form-data" novalidate>
                             <div class="form-group">
-                                <input id="email" name="email" type="email" class="form-control" placeholder="Email Addess" tabindex="1" required>
+                                <input 
+                                    id="email" 
+                                    name="email" 
+                                    type="email" 
+                                    class="form-control" 
+                                    placeholder="Email Address" 
+                                    tabindex="1" 
+                                    required 
+                                    autocomplete="email"
+                                > 
+                                <div class="invalid-feedback">Please enter a valid email address</div>                               
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <input id="first-name" name="fName" type="text" class="form-control" placeholder="First Name" tabindex="2" required>
+                                    <div class="invalid-feedback">Please enter your first name</div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input id="last-name" name="lName" type="text" class="form-control" placeholder="Last Name" tabindex="3" required>
-                                </div>    
+                                    <input id="last-name" name="lName" type="text" class="form-control" placeholder="Last Name" tabindex="3" required autocomplete="family-name">
+                                    <div class="invalid-feedback">Please enter your last name</div>
+                                </div>
                             </div>                                                   
                             <div class="form-group">
                                 <input id="address" name="address" type="text" class="form-control" placeholder="Address" tabindex="1" required>
+                                <div class="invalid-feedback">Please enter an address</div>
                             </div>
                             <div class='form-row'>
                                 <div class="form-group col-md-6">

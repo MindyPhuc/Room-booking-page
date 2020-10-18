@@ -1,6 +1,6 @@
 <!-- ******************************************
  * WEB222NGG
- * Assignment 1
+ * Assignment 2
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
  * Date: October 24, 2020
@@ -15,13 +15,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>WEB322 - Assignment 1</title>
         <link rel="stylesheet" href="styles/styles.css">
-        <!-- using bootstrap for forms -->
+        <!-- using bootstrap for forms styles -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
         <!-- using Font Awesome for social media icon -->
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>        
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+        <!-- script for form validation -->         
+        <script src="scripts/script.js"></script>
      </head>
 
      <body>
@@ -62,12 +63,14 @@
                 <div class="container">
                     <div class="form-container">
                         <h3>LOG IN</h3>                     
-                        <form class="form-wrapper" action="/login" method="POST" enctype="multipart/form-data">
+                        <form class="needs-validation" action="/login" method="POST" enctype="multipart/form-data" novalidate>
                             <div class="form-group">
-                                <input id="username" name="username" type="text" class="form-control" placeholder="Username" tabindex="1" required>
+                                <input id="username" name="username" type="text" class="form-control" placeholder="Username" tabindex="1" autofocus required>
+                                <div class="invalid-feedback">Please enter username</div>
                             </div>
                             <div class="form-group">
                                <input id="password" name="password" type="password" class="form-control" placeholder="Password" tabindex="2" required>
+                               <div class="invalid-feedback">Please enter password</div>
                            </div>                        
                            <div class="button">
                                <button type="submit" class="btn btn-warning" tabindex="3">Login</button>

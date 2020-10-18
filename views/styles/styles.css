@@ -150,7 +150,7 @@ header, footer {
     padding-bottom: 1rem;
     font-family: 'Sansita Swashed', cursive;
 }
-/* slide banners */
+/* banners */
 #slide-banner {
     min-height: 20rem;
     max-height: 29rem;
@@ -270,6 +270,48 @@ input[type="date"]:focus:before {
     background-repeat: no-repeat;
     background-size: cover;  
 }
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display:none;
+    background-color: rgb(238,238,238,0.9);
+    color: #10375c;
+    position: relative;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
+  #message p {
+    padding-left: 5rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  #message h4 {
+    font-family: 'Roboto Slab', serif;    
+  }
+  /* Add a green text color and a check mark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -3rem;
+    content: "\2714";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "\2716";
+  }
 
 /**********************************************************************************************************
 * Detail Page */
