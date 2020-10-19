@@ -1,142 +1,148 @@
-<!-- ******************************************
+<!-- /* ******************************************
  * WEB222NGG
- * Assignment 1
+ * Assignment 2
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: October, , 2020
+ * Date: October 24, 2020
  ********************************************
  * images from unsplash.com | canva.com
- ********************************************-->
+ ******************************************** */ -->
 
- <!DOCTYPE html>
- <html>
-     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>WEB322 - Assignment 1</title>
-        <link rel="stylesheet" href="styles/styles.css">
-        <!-- using bootstrap for forms -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">       
-        <!-- using Font Awesome for social media icon -->
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script> 
-        <!-- script for form validation -->        
-        <script src="scripts/script.js"></script>
-     </head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-     <body>
-         <header>
-            <div class="background-img">
-                <!-- logo & navigation bar -->
-                <div class="container">
-                    <div class="header-line-wrapper">
-                        <div class="logo-wrapper">
-                            <a href="/">
-                                <img src="images/logo_8.JPG" atl="logo" width="100">
-                            </a>
-                        </div>
-                        
-                        <div class='nav-wrapper'>                   
-                            <div class="nav-link-wrapper">
-                                <a href="/">Home</a>
-                            </div>
-                            <div class="nav-link-wrapper">
-                                <a href="/become-a-host">Become a host</a>
-                            </div>
-                            <div class="nav-link-wrapper">
-                                <a href="/rooms">Our Rooms</a>
-                            </div>                          
-                            <div class="nav-link-wrapper">
-                                <a href="/login">Login</a>
-                            </div>           
-                        </div>
-                    </div>                  
-                </div>                                         
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- Form validation -->
+    <script src="scripts/script.js"></script>
+    
+    <title>WEB322 Assignment</title>
+  </head>
+  <body>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+            <div class="col-12 text-right">
+                <p><a href="tel:+123456789">Call us at 1 (23456789)</a></p>
             </div>
-                 
-         </header>
+            </div>
+        </div>
 
-         <main>
-             <div id="sign-up-bg">
-                <div class="container">
-                    <div class="form-container">
-                        <h3>SIGN UP</h3>                     
-                        <form class="needs-validation" action="/signup" method="POST" enctype="multipart/form-data" novalidate>
-                            <div class="form-group">
-                                <input 
-                                    id="email" 
-                                    name="email" 
-                                    type="email" 
-                                    class="form-control" 
-                                    placeholder="Email Address" 
-                                    tabindex="1" 
-                                    required 
-                                    autocomplete="email"
-                                > 
-                                <div class="invalid-feedback">Please enter a valid email address</div>                               
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <input id="first-name" name="fName" type="text" class="form-control" placeholder="First Name" tabindex="2" required>
-                                    <div class="invalid-feedback">Please enter your first name</div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input id="last-name" name="lName" type="text" class="form-control" placeholder="Last Name" tabindex="3" required autocomplete="family-name">
-                                    <div class="invalid-feedback">Please enter your last name</div>
-                                </div>
-                            </div>                       
-                           <div class="form-group">
-                               <input   
-                                    id="password" 
-                                    name="password" 
-                                    type="password" 
-                                    class="form-control" 
-                                    placeholder="Create a Password" 
-                                    tabindex="4" 
-                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                                    required>
-                                <div class="invalid-feedback">Please enter a valid password</div>
-                                <div id="message">
-                                    <h4>Password must contain the following:</h4>
-                                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                                    <p id="number" class="invalid">A <b>number</b></p>
-                                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-                                </div>                                 
-                           </div>
-                           <div class="form-group">
-                            <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" tabindex="5" required>
-                            <div class="valid-feedback">Passwords match</div>
-                            <div class="invalid-feedback">Please make sure your passwords match</div>
-                        </div>                                                                   
-                        <div class="form-group">
-                            <div class="button">
-                                <button type="submit" class="btn btn-warning" tabindex="3">Sign up</button>
-                            </div>
-                        </div>                        
-                        </form>
+        <!-- Navigation -->
+        <nav class="navbar bg-light navbar-light navbar-expand-lg">
+            <div class="container">
+
+            <a href="/" class="navbar-brand"><img src="images/logo_8.JPG" alt="Logo" title="Logo"></a>       
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">         
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/rooms" class="nav-link">Our Rooms</a></li>
+                    <li class="nav-item"><a href="/host" class="nav-link">Become a Host</a></li>
+                    <li class="nav-item"><a href="signup" class="nav-link active">Sign Up</a></li>
+                    <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+
+        <!-- Form -->
+        <div class="sign-up-bg">
+            <div class="container p-4 w-50 my-5 bg-form">                
+                <h3 class="text-center py-3">SIGN UP</h3>                    
+                <form class="needs-validation" action="/signup" method="POST" enctype="multipart/form-data" novalidate>
+                    <div class="form-group">
+                        <input 
+                            id="email" 
+                            name="email" 
+                            type="email" 
+                            class="form-control" 
+                            placeholder="Email Address" 
+                            tabindex="1" 
+                            required 
+                            autocomplete="email"
+                        > 
+                        <div class="invalid-feedback">Please enter a valid email address</div>                               
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input id="first-name" name="fName" type="text" class="form-control" placeholder="First Name" tabindex="2" required>
+                            <div class="invalid-feedback">Please enter your first name</div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input id="last-name" name="lName" type="text" class="form-control" placeholder="Last Name" tabindex="3" required autocomplete="family-name">
+                            <div class="invalid-feedback">Please enter your last name</div>
+                        </div>
+                    </div>                       
+                    <div class="form-group">
+                       <input   
+                            id="password" 
+                            name="password" 
+                            type="password" 
+                            class="form-control" 
+                            placeholder="Create a Password" 
+                            tabindex="4" 
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            required>
+                        <div class="invalid-feedback">Please enter a valid password</div>
+                        <div id="message">
+                            <h4>Password must contain the following:</h4>
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>                                 
+                    </div>
+                   <div class="form-group">
+                        <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" tabindex="5" required>
+                        <div class="valid-feedback">Passwords match</div>
+                        <div class="invalid-feedback">Please make sure your passwords match</div>
+                    </div>                                                                   
+                    <div class="form-group">
+                        <div class="button">
+                            <button type="submit" class="btn btn-custom w-100" tabindex="3">Sign up</button>
+                        </div>
+                    </div>                        
+                </form>                 
+            </div>
+        </div>
+        <!-- footer section -->
+        <footer>
+            <div class="container">
+            <div class="row text-light text-center py-4 justify-content-center">
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                <img src="images/logo_8.JPG" alt="Logo" title="Logo">
+                <p>Our services are available at anytime you need</p>
+                <ul class="social">
+                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                </ul>
                 </div>
-             </div>             
-         </main>
-         <footer>
-            <div class="background-img">
-               <div class="container">
-                   <div class="wrapper" id="contact">
-                       <h4>Contact Us</h4>
-                       <div class="icons">
-                           <i class="fab fa-facebook"></i>
-                           <i class="fab fa-twitter-square"></i>
-                           <i class="fab fa-instagram-square"></i>
-                       </div>
-                    </div>
-                   <div class="wrapper">                     
-                       <div class="copyright-wrapper">
-                           <small>&copy 2020  Thi My Phuc Huynh - Mindy</small>
-                       </div>                    
-                   </div> 
-               </div>
-            </div>                                    
-        </footer>       
-        </body>
- </html>
+            </div>                   
+            </div>
+        </footer>
+
+        <!-- copyright -->
+        <div class="copyright text-light text-center py-3">
+            <p>&copy; 2020 Thi My Phuc Huynh - Mindy</p>
+        </div>
+        <!-- jQuery, Popper.js, Bootstrap JS, Font Awesome JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </body>
+</html>

@@ -48,11 +48,11 @@ app.get("/", function(req,res){
 });
 
 app.get("/rooms", function (req,res){
-    res.sendFile(path.join(__dirname,"views/room-listing.html"));
+    res.sendFile(path.join(__dirname,"views/rooms.html"));
 });
 
-app.get("/become-a-host", function (req,res){
-    res.sendFile(path.join(__dirname,"views/become-host.html"));
+app.get("/host", function (req,res){
+    res.sendFile(path.join(__dirname,"views/host.html"));
 });
 
 app.get("/signup", function (req,res){
@@ -60,7 +60,7 @@ app.get("/signup", function (req,res){
 });
 
 app.get("/details", function (req,res){
-    res.sendFile(path.join(__dirname,"views/detail-page.html"));
+    res.sendFile(path.join(__dirname,"views/details.html"));
 });
 
 app.get("/login", function (req,res){

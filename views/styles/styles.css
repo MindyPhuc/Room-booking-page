@@ -1,9 +1,9 @@
 /* ******************************************
  * WEB222NGG
- * Assignment 1
+ * Assignment 2
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: October, , 2020
+ * Date: October 24 , 2020
  ********************************************
  * images from unsplash.com | canva.com
  ******************************************** */
@@ -14,7 +14,14 @@
     font-family: 'Roboto Slab', serif;
     font-family: 'Sansita Swashed', cursive; */
 
-/* General style */
+/*********** Colors ******************
+ * #0f3057: dark blue
+ * #00587a: lighter blue
+ * #008891: tortoise
+ * #e7e7de: smoke white
+ * #ffc93c: yellow
+
+/*============ General =================*/
 * {
     margin: 0;
     padding: 0;
@@ -27,248 +34,313 @@
 html, body {
     margin: 0px;
     width: 100%;
-    height: 100%;
+    height: 100%;    
 }
 
 body {
-    color: #10375c !important;
+    overflow-x: hidden;
+    color: #0f3057 !important;
     font-family: 'Roboto', sans-serif !important;
 }
-header, footer {
-    background-color: whitesmoke;    
-}
-.container {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding-top: 1rem;        
+
+/* Overwrite some styles of Bootstrap */
+.row, .container-fluid {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
-/* header line and navigation bar style */
-.header-line-wrapper {
-    display:flex;
-    justify-content: space-between;
-    padding: 1rem;    
-}
-
-.nav-wrapper {
-    display:flex;
-    justify-content: space-evenly;
-    padding: 1rem;
-    background-color: rgba(15,48,87,0.85);
-    opacity: 80%;      
-}
-
-.nav-wrapper > div {
-    margin-right: 2rem;
-    font-size: 0.9em;
-    text-transform: uppercase;
-}
-
-.nav-link-wrapper {
-    height: 1.5rem;
-    border-bottom: 1px solid transparent;
-    transition: border-bottom 0.5s;
-}
-
-.nav-link-wrapper a {
-    color: #e7e7de;
-    text-decoration: none;
-    transition: color 0.5s;
-}
-
-.nav-link-wrapper:hover {
-    border-bottom: 1px solid #ffc93c;    
-}
-
-.nav-link-wrapper a:hover {
-    color:#fddb3a;
-    text-decoration: none;
-}
-
-/* background image style for header area */
-.background-img {
-    /* The image used */
-    background-image: url("../images/header_1.jpg");
-  
-    min-height: 10rem;
-    max-height: 15rem;
-    /* Center and scale the image */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-    /* Needed to position the navbar */
+.fixed-background {
     position: relative;
-
-    padding-bottom: 1rem;
+    width: 100%;
+    z-index: 1000 !important;
 }
 
-/* search bar styles */
+.fixed-wrap {
+    clip: rect(0, auto, auto, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/*============ Top Bar =================*/
+.top-bar {
+    background: #008891;
+    height: 2.8rem;
+    padding: .5rem 0;    
+}
+
+.top-bar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+/*=========== Navigation ====================*/
+.navbar-brand img {
+    height: 2rem;
+}
+
+.navbar {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    box-shadow: 0 .5rem .5rem rgba(0, 0, 0, .1);
+    z-index: 1;
+}
+
+.nav-item {
+    padding: .5rem;
+}
+
+.nav-link {
+    color:  #0f3057 !important;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color:#ffc93c !important;
+}
+
+/*========= Search Bar ============*/
 .button-label {
     visibility: hidden;
 }
 
-#search-bar-btn {
-    background-color: #ffc93c ;
-    color: black;
-}
-
-#search-bar-btn:hover {
-    background-color: #fddb3a;
-    transition: .3s;
-}
-.form-group label {
+.btn-custom {
+    background: #008891;
     color: white;
 }
-
-.search-booking-form-content {
-    background-color: rgba(15,48,87,0.85);
-    padding: 1rem;
+.btn-custom:hover {
+    background-color: #fddb3a;
+    transition: .3s;
+    color: #0f3057;
 }
-.search-booking-form-content h2 {
-    color: whitesmoke;
-}
-
-/* main styles */
-
-.content-wrapper {
-    display: flex;
-    margin: 20px 0;
-    padding-bottom: 20px;
-    border-bottom: lightgrey 1px solid;
-}
-.contain-img img {
-    width: 25rem;
-    height: auto;
+#search-bar {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;    
 }
 
-.content-text-wrapper {
-    margin-left: 30px;
-}
-
-.content-text-title {
-    padding-bottom: 1rem;
+#search-bar h2 {
     font-family: 'Sansita Swashed', cursive;
 }
-/* banners */
-#slide-banner {
-    min-height: 20rem;
-    max-height: 29rem;
-    margin-top: -2rem;
+
+.form-group label {
+    font-family: 'Roboto Slab', serif;
 }
 
-/* footer styles */
-footer .container {
-    padding: 1rem;
+::placeholder{
+    font-family: 'Roboto', sans-serif;
+}
+/*========= Carousel ==============*/
+#carousel {
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, .1);
+}
+
+.carousel.inner {
+    max-height: 35rem !important;
+}
+
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+    transition: transform 1.2s ease;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 54%;
+    transform: translateY(-50%);    
+}
+
+.carousel-caption h1 {
+    font-family: 'Sansita Swashed', cursive;
+    font-size: 3.8rem;
+    text-shadow: .1rem .1rem .3rem rgba(0, 0, 0, 1);
+    color: #fddb3a;
+}
+.bg-custom {    
+    color: white;    
+    letter-spacing: .15rem;      
+}
+
+/*============== Informational section ==============*/
+.border-top {
+    border-top: .3rem solid #008891 !important;
+}
+
+h1 {
+    font-family: 'Sansita Swashed', cursive;    
+}
+/*============== Footer ==================*/
+footer {    
+    background-color: #00587a;
+    padding: 1rem 2rem 3rem;
+}
+
+footer img {
+    height: 2.8rem;
+    margin: 1.5rem auto;
+}
+
+footer a {
+    color: #e7e7de;
+    text-decoration: none;
+}
+
+ul.social {
+    list-style-type: none;
+    display: flex;
+    max-width: 16rem;
+    margin: 0 auto;
+}
+
+ul.social li {
+    margin: 0 auto;
+}
+
+footer a > i {
+    font-size: 2.5rem;
+    padding: 0 1rem;
+}
+
+a > i:hover {
+    color:#ffc93c;
+}
+
+.copyright{
+    background-color:#0f3057;
+    height: 2.8rem;
+    padding: .5rem 0; 
+}
+
+/*================= Room Listing ==============*/
+.card-title {
+    font-family: 'Roboto Slab', serif;
+}
+
+/*================== Detail Page ==============*/
+.link {
+    color: #0f3057;
+}
+
+h3 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 2.2rem;
+}
+
+.room-img-wrapper {   
+    width: 100%;    
+    height: 24rem;  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 0.5rem;
+    grid-template-areas: 
+            'img-1 img-1 img-2 img-3'
+            'img-1 img-1 img-4 img-5';
+}
+
+.room-img-wrapper img {
+    width: 100%;
+    height: 12rem;
+}
+
+.img-1 {
+    grid-area: img-1;
+    min-height: 24.5rem;
+    min-width: 24rem;    
+}
+
+.img-2 {
+    grid-area: img-2;
+}
+.img-3 {
+    grid-area: img-3;
+}
+.img-4 {
+    grid-area: img-4;
+}
+.img-5 {
+    grid-area: img-5;
+}
+
+.host-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-flow: column;   
-}
-#contact {
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    flex-flow: column;
-    padding-bottom: 1rem;    
+    padding-right: 1rem;    
 }
 
-#contact h4 {
-    font-family: 'Sansita Swashed', cursive;
-    font-size: 2rem;
-}
-/* Social Media Icons */
-.icons i {    
-    margin: 0.5rem;
-    padding: 0.5rem;
-    font-size: 3rem;
-    cursor: pointer;
-    display: inline;    
-    transition: .5s;
-}
-
-i:hover {
-    color: #127681;    
-    transition: .5s;
-}
-/******************************************************************************/
-/* rooms listing page styles */
-.rooms-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;    
-    margin-top: 4rem;
-    width: 100%;
-    padding: 0;
-}
-.room-wrapper { 
-    margin: .5rem;   
-    border: .5px solid lightgray;
-    border-radius: 1.5%;  
-    padding: 0.5rem 1rem;     
-}
-
-.room-img img {
-    width: 100%;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
-.room-text-title h4 {
+.host-info-text h4 {
     font-family: 'Roboto Slab', serif;
 }
+.host-img img {
+    width: 40px;
+    border-radius: 50%;
+}
 
-/*************************************************************************************
-Forms styles */
+.book-now-wrapper {
+    border: 1px solid lightgrey;
+    border-radius: 2%;
+    background-color: #eeeeee;
+    padding: 1rem;
+    margin-top: .5rem;
+    margin-bottom: 2rem; 
+    color: #10375c;   
+}
+.book-now-wrapper h4 {
+    font-family: 'Sansita Swashed', cursive;
+    text-align: center;
+}
 
-.form-container {
-    margin: 2rem 7rem ;
-    padding: 2rem;
-    border: 1px solid lightgray;
+#book-now-btn {
+    background-color: #00587a;
+    color: white;
+    width: 100%;
+}
+
+.book-now-wrapper label {
+    color: #10375c;
+}
+
+/*=================== Become a Host, Sign up, Login Forms ============*/
+.bg-form {
     background-color: rgb(238,238,238,0.9);
     border-radius: 2%;
 }
-.form-container h3 {
-    font-family: 'Roboto Slab', serif;
-    text-align: center;
-    padding-bottom: 1rem;
 
-}
-input[type=date] {
-    text-align: right;
-}
-
-input[type="date"]:before {
-    color: #767c77;
-    content: attr(placeholder) !important;
-    margin-right: 0.5em;
-}
-
-input[type="date"]:focus:before {
-    content: '' !important;
-}
-
-.form-container button {
-    width: 100%;
-    padding: .5rem;
-    background-color: #00587a;
-    border: none;
-    color: white;
-    transition: all .5s ease;
-    cursor: pointer;  
-    margin: .5rem; 
-    align-self: center; 
-}
-.form-container label {
-    color: #10375c;
-}
-#sign-up-bg{
+.become-host-bg {
     background-image: url('../images/bg_1.jpg');
     width:100%;
-    height: 40rem;
-    /* Center and scale the image */
+    padding: 1rem;       
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;  
+    background-size: cover;
+}
+
+.login-bg {
+    background-image: url('../images/bg_2.jpg');
+    width:100%;
+    padding: 1rem;       
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sign-up-bg {
+    background-image: url('../images/bg_3.jpg');
+    width:100%;
+    padding: 1rem;       
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* The message box is shown when the user clicks on the password field */
@@ -313,134 +385,7 @@ input[type="date"]:focus:before {
     content: "\2716";
   }
 
-/**********************************************************************************************************
-* Detail Page */
-
-/* header section */
-.detail-header {
-    padding-top: 1rem;
-}
-
-.detail-header h3 {
-    font-family: 'Roboto Slab', serif;
-    font-size: 2.5rem;
-}
-.sub-header-bar {
-    display: flex;
-    justify-content: space-between;    
-}
-
-.rating-bar a, .save-bar a {
-    color: #10375c;
-}
-
-/* Room images section */
-.room-img-wrapper {   
-    width: 100%;    
-    height: 24rem;  
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-gap: 0.5rem;
-    grid-template-areas: 
-            'img-1 img-1 img-2 img-3'
-            'img-1 img-1 img-4 img-5';
-}
-
-.room-img-wrapper img {
-    width: 100%;
-    height: 12rem;
-}
-
-.img-1 {
-    grid-area: img-1;
-    min-height: 24.5rem;
-    min-width: 24rem;    
-}
-
-.img-2 {
-    grid-area: img-2;
-}
-.img-3 {
-    grid-area: img-3;
-}
-.img-4 {
-    grid-area: img-4;
-}
-.img-5 {
-    grid-area: img-5;
-}
-
-/* Host section */
-#two-columns {
-    display: grid;
-    grid-template-columns: 1.7fr 1fr;
-    grid-gap: 2.5rem;
-}
-
-.host-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 1rem;    
-}
-
-.host-info-text h3 {
-    font-family: 'Roboto Slab', serif;
-}
-.host-img img {
-    width: 40px;
-    border-radius: 50%;
-}
-
-/* Book Now form */
-.book-now-wrapper {
-    border: 1px solid lightgrey;
-    border-radius: 2%;
-    background-color: #eeeeee;
-    padding: 1rem;
-    margin-top: .5rem;
-    margin-bottom: 2rem; 
-    color: #10375c;   
-}
-.book-now-wrapper h3 {
-    font-family: 'Sansita Swashed', cursive;
-    text-align: center;
-}
-
-#book-now-btn {
-    background-color: #00587a;
-    color: white;
-    width: 23rem;
-}
-
-.book-now-wrapper label {
-    color: #10375c;
-}
-
-/***********************************************************
-* Become a host Page */
-.become-host-bg{
-    background-image: url('../images/bg_3.jpg');
-    width:100%;
-    height: 40rem;
-    /* Center and scale the image */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;  
-}
-
-/************************************************************
-*Thank you page */
-
-.thank-you-img {
-    background-image: url('../images/bg_2.jpg');
-    width:100%;
-    height: 40rem;
-    background-size: 100% 100%;
-    position: relative;
-}
-
+/*============= Dashboard ==============*/
 .thank-you-text {
     position: absolute;
     left:50%;
@@ -460,4 +405,24 @@ input[type="date"]:focus:before {
 .thank-you-text h1:hover {
     color: #fddb3a;
     transition: .3s;
+}
+/*=============== Media Queries ================*/
+/*devices under 1200px (xl)*/
+@media (max-width: 1199.98px) {
+    .carousel-caption h1 {
+        font-size: 2.8rem;
+    }
+    
+}
+/*devices under 992px (lg)*/
+@media (max-width: 991.98px) {
+    .carousel-caption h1 {
+        font-size: 2.5rem;
+    }
+    .card-title {
+        font-size: .9rem;
+    }
+    .card-text {
+        font-size: 0.7rem;        
+    }    
 }
