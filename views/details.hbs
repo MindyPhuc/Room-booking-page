@@ -1,0 +1,122 @@
+<!-- /* ******************************************
+ * WEB222NGG
+ * Assignment 2
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: October 24, 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ******************************************** */ -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- Form validation -->
+    <script src="scripts/script.js"></script>
+    
+    <title>WEB322 Assignment</title>
+  </head>
+  <body>
+        {{> header}}
+        <!-- Heading -->
+        <div class="container pt-4 pb-4">
+            <h3>1 Bedroom Downtown North York</h3>
+            <div class="row">
+                <div class="col-6 text-left">                    
+                    <span><i class="fas fa-star"></i> 4.5 |</span>
+                    <span> <i class="fas fa-medal"></i> Super Host |</span>
+                    <span><a href="#" class="link"><i class="fas fa-map-marker-alt"></i> Toronto, Ontario, Canada</a></span>                                             
+                </div>
+                <div class="col-6 text-right">
+                    <span><a href="#" class="link"><i class="fas fa-share-square"></i> Share</a></span>
+                    <span><a href="#" class="link"><i class="far fa-heart"></i> Save</a></span>
+                </div>
+            </div>
+                     
+        </div> 
+        
+        <!-- Room images -->
+        <div class="container" id="room-img-container">
+            <div class="room-img-wrapper">
+                <img src="images/detail_1-1.webp" alt="detail-1" class="img-1">
+                <img src="images/detail_1-2.webp" alt="detail-1" class="img-2">
+                <img src="images/detail_1-3.webp" alt="detail-1" class="img-3">
+                <img src="images/detail_1-4.webp" alt="detail-1" class="img-4">
+                <img src="images/detail_1-5.webp" alt="detail-1" class="img-5">                                      
+            </div>
+        </div>
+
+        <!-- two column section -->
+        <div class="container mb-5">
+            <div class="row py-4">
+                <div class="col-lg-8 mb-4 my-lg-auto">
+                    <div class="host-info">
+                        <div class="host-info-text">
+                            <h4>Private room in house hosted by Mindy</h4>
+                            <p> 2 guest | Room | 1 bed | 1 bath </p>
+                        </div>
+                        <div class="host-img">
+                            <a href="#"><img src="images/host_1.jpg" alt="host"></a>
+                        </div>
+                    </div>
+                    <div class="room-info">
+                        <hr>
+                        <div class="room-features">
+                            <h5><i class="fas fa-hand-sparkles"></i> Enhanced Clean</h5>
+                            <h5><i class="fas fa-door-open"></i> Self Check-in</h5>
+                            <h5><i class="far fa-calendar-times"></i> Cancellation Policy</h5>
+                        </div>
+                        <div class="room-desc"                        >
+                            <p>1 bedroom (basement) with private entrance and private bathroom, access to kitchenette (fridge. microwave, kettle, coffee maker, toaster, dishes and cutlery) and laundry, 1 parking space available. 5 minute walk to Yonge Sheppard subway. 2 minute drive to 401</p>
+                            <p><b>Other things to note</b><br>
+                                I live in the house (upstairs) with my husband, young child and dog. You will probably hear us during the day (old house!) but we are very quiet after 8 pm :)
+                            </p>
+                        </div>                      
+                    </div>
+                </div>
+                
+                <!-- Book now form -->
+                <div class="col-lg-4 mb-4 my-lg-auto">
+                    <div class="book-now-wrapper">
+                        <h4> Add dates for prices</h4>
+                        <form class="needs-validation" action="/details" method="post" novalidate>                            
+                            <div class="form-group">
+                                <label for="check-in">CHECK-IN</label>
+                                <input id="check-in" name="check-in" type="date" class="form-control" tabindex="1" required>
+                                <div class="invalid-feedback">Please choose a date</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkout">CHECKOUT</label>
+                                <input id="checkout" name="checkout" type="date" class="form-control" tabindex="2" required>
+                                <div class="invalid-feedback">Please choose a date</div>
+                            </div>                            
+                            <div class="form-group">
+                                <label for="guests">GUESTS</label>
+                                <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3" required>
+                                <div class="invalid-feedback">Please choose number of guests</div>
+                            </div>
+                            <div class="form-group">                             
+                                <input name="search" type="submit" class="btn" id="book-now-btn" tabindex="4" value="Book Now">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+       {{> footer}}
+        <!-- jQuery, Popper.js, Bootstrap JS, Font Awesome JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </body>
+</html>

@@ -1,23 +1,29 @@
 /* ******************************************
  * WEB222NGG
- * Assignment 1
+ * Assignment 2
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: October 10, 2020
+ * Date: October 23, 2020
  ******************************************** */
 
-
+// Required Modules
 var express = require("express"); 
 var app = express(); 
 var path = require("path");
 var multer = require("multer");
 var nodemailer = require("nodemailer");
+const hbs = require('express-handlebars');
 
 // setup port number
 var HTTP_PORT = process.env.PORT || 8080;
 function onHttpStart() {
     console.log("Express http server listening on: " + HTTP_PORT);
 }
+
+
+// setup for express-handlebars
+app.engine('.hbs', hbs({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 // setup parameters for multer
 const STORAGE = multer.diskStorage({
@@ -44,32 +50,42 @@ app.use(express.static("public"));
 
 // setup routes
 app.get("/", function(req,res){
-    res.sendFile(path.join(__dirname,"views/index.html"));
+    //res.sendFile(path.join(__dirname,"views/index.html"));
+    res.render('index', ({layout: false}));
 });
 
 app.get("/rooms", function (req,res){
-    res.sendFile(path.join(__dirname,"views/rooms.html"));
+    //res.sendFile(path.join(__dirname,"views/rooms.html"));
+    res.render('rooms', ({layout: false}));
 });
 
 app.get("/host", function (req,res){
-    res.sendFile(path.join(__dirname,"views/host.html"));
+    //res.sendFile(path.join(__dirname,"views/host.html"));
+    res.render('host', ({layout: false}));
 });
 
 app.get("/signup", function (req,res){
-    res.sendFile(path.join(__dirname,"views/signup.html"));
+    //res.sendFile(path.join(__dirname,"views/signup.html"));
+    res.render('signup', ({layout: false}));
 });
 
 app.get("/details", function (req,res){
-    res.sendFile(path.join(__dirname,"views/details.html"));
+    //res.sendFile(path.join(__dirname,"views/details.html"));
+    res.render('details', ({layout: false}));
 });
 
 app.get("/login", function (req,res){
-    res.sendFile(path.join(__dirname,"views/login.html"));
+    //res.sendFile(path.join(__dirname,"views/login.html"));
+    res.render('login', ({layout: false}));
 });
 
-app.get("/dashboard", function (req,res){
+
+// we render the file instead
+/* app.get("/dashboard", function (req,res){
     res.sendFile(path.join(__dirname,"views/dashboard.html"));
-}); 
+}); */ 
+
+
 
 // post data for become a host form
 app.post("/host", UPLOAD.single("photo"), (req, res) => {
@@ -82,7 +98,7 @@ app.post("/host", UPLOAD.single("photo"), (req, res) => {
         "This is the uploaded image: <br>" +
         "<img src='/photos/" + FILE_DATA.filename + "'>";
 
-    //res.send(DATA_OUTPUT);
+    
 
     var emailHost = {
         from: 'tmphuynhweb322@gmail.com',
@@ -99,7 +115,12 @@ app.post("/host", UPLOAD.single("photo"), (req, res) => {
             console.log("SUCCESS: " + info.response);
         }
     });
-    res.redirect('/dashboard');
+
+    // render dashboard page
+    res.render('dashboard', {
+        data: FORM_DATA,
+        layout: false
+    });
 });
 
 // post data for the signup form of renters
@@ -121,15 +142,36 @@ app.post("/signup", UPLOAD.single("email"), (req,res)=> {
             console.log("SUCCESS: " + info.response);
         }
     });
-    res.redirect('/dashboard');
+
+    // render dashboard page
+    res.render('dashboard', {
+        data: FORM_DATA,
+        layout: false
+    });
 });
 
 // post for the login form
-app.post("/login", (req,res)=> {   
-    res.redirect('/dashboard');
+app.post("/login", UPLOAD.single("username"), (req,res)=> {
+    FORM_DATA = req.body;
+
+    // render dashboard page
+    res.render('dashboard', {
+        data: FORM_DATA,
+        layout: false
+    });
 });
 
+// post for the Book Now form
+app.post("/details", (req,res)=> {
+    FORM_DATA = req.body;
 
-// setup http server to listen on HTTP_PORT (setup listener)
+    // render dashboard page
+    res.render('dashboard', {
+        data: FORM_DATA,
+        layout: false
+    });
+});
+
+// setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);
 
