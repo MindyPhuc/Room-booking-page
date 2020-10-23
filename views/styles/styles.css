@@ -410,6 +410,10 @@ h3 {
 .data-name {
     color: #e6739f !important;
 }
+
+.data-name:hover {
+    color: #cc0e74 !important;
+}
 /*=============== Media Queries ================*/
 /*devices under 1200px (xl)*/
 @media (max-width: 1199.98px) {
