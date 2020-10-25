@@ -27,7 +27,7 @@ app.set('view engine', '.hbs');
 
 // setup parameters for multer
 const STORAGE = multer.diskStorage({
-    destination: path.join(__dirname,"public/photos/"),
+    destination: "./public/photos/",
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
     }    
@@ -99,7 +99,7 @@ app.post("/host", UPLOAD.single("photo"), (req, res) => {
         "<img src='/photos/" + FILE_DATA.filename + "'>"; */
 
     
-
+    
     var emailHost = {
         from: 'tmphuynhweb322@gmail.com',
         to: FORM_DATA.email,
