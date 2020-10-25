@@ -434,3 +434,10 @@ h3 {
         font-size: 0.7rem;        
     }    
 }
+
+/*devices under 480px (lg)*/
+@media (max-width: 479.98px) {
+    .form-header-custom {
+        font-size: 1.5rem;
+    }
+}
