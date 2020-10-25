@@ -92,14 +92,14 @@ app.post("/host", UPLOAD.single("photo"), (req, res) => {
     const FORM_DATA = req.body;
     const FILE_DATA = req.file;
 
-    const DATA_OUTPUT = "Your submission was received: <br> <br>" +
+   /*  const DATA_OUTPUT = "Your submission was received: <br> <br>" +
         "Your form data was: <br>" + JSON.stringify(FORM_DATA) + "<br> <br>" +
         "Your file data was: <br>" + JSON.stringify(FILE_DATA) + "<br> <br>" +
         "This is the uploaded image: <br>" +
-        "<img src='/photos/" + FILE_DATA.filename + "'>";
+        "<img src='/photos/" + FILE_DATA.filename + "'>"; */
 
     
-
+    
     var emailHost = {
         from: 'tmphuynhweb322@gmail.com',
         to: FORM_DATA.email,
