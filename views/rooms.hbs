@@ -22,7 +22,7 @@
     <title>WEB322 Assignment</title>
   </head>
   <body> 
-      {{> header}}      
+      {{> header user}}      
 
        <!-- searching form -->
         <div class="container">
@@ -74,91 +74,36 @@
         </div>
 
         <!-- Heading -->
-        <div class="col-12 text-center mt-5">
-            <h1 class="text-dark pt-2">Room Listing</h1>
-            <div class="border-top border-primary w-25 mx-auto my-3"></div>
-            <div class="lead">Looking for a great place to stay</div>
+        <div class="col-12 text-center mt-5">         
+            {{#if hasRooms}}
+                <h1 class="text-dark pt-2">Room Listing</h1>
+                <div class="border-top border-primary w-25 mx-auto my-3"></div>
+                <div class="lead">Looking for a great place to stay</div>
+            {{else}}
+                <h1 class="text-dark pt-2">There is no room to display</h1>
+                <div class="border-top border-primary w-25 mx-auto my-3"></div>
+            {{/if}}
         </div>
 
         <!-- Room listing section -->   
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 py-4">
+            <div class="row justify-content-center">
+                {{#if hasRooms}} {{#each rooms}}
+                <div class="col-12 col-sm-6 col-md-4 py-4">
                     <div class="card h-100">
                         <a href="/details">
-                            <img src="images/room_1.jpg" alt="Room picture" class="card-img-top">
+                            <img src="images/{{photos.0.fileName}}" alt="Room picture" class="card-img-top">
                         </a>
                         <div class="card-body">
-                            <h4 class="card-title">Vintage Interior Design Apartment</h4>
-                            <p class="card-text">2 guest | Studio | 1 bed | 1 bath</p>
-                            <p class="card-text"><b>$130 CAD</b>/night</p>
+                            <h4 class="card-title">{{title}}</h4>
+                            <p class="card-text">{{guest}} guest | {{type}}</p>
+                            <p class="card-text"><b>${{price}} CAD</b>/night</p>                            
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 py-4">
-                    <div class="card h-100">
-                        <a href="/details">
-                            <img src="images/room_2.jpg" alt="Room picture" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Entire Apartment with Free Parking</h4>
-                            <p class="card-text">4 guest | 2 bed | 2 bath</p>
-                            <p class="card-text"><b>$250 CAD</b>/night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 py-4">
-                    <div class="card h-100">
-                        <a href="/details">
-                            <img src="images/room_3.jpg" alt="Room picture" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Spacious Room with Opened Design</h4>
-                            <p class="card-text">3 guest | Room | 1 bed | 1 bath</p>
-                            <p class="card-text"><b>$180 CAD</b>/night</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 py-4">
-                    <div class="card h-100">
-                        <a href="/details">
-                            <img src="images/room_4.jpg" alt="Room picture" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Private Room Near Downtown</h4>
-                            <p class="card-text">2 guest | Room | 1 bed | 1 bath</p>
-                            <p class="card-text"><b>$150 CAD</b>/night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 py-4">
-                    <div class="card h-100">
-                        <a href="/details">
-                            <img src="images/room_5.jpg" alt="Room picture" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Newly Renovated Room</h4>
-                            <p class="card-text">2 guest | Room | 1 bed | 1 bath</p>
-                            <p class="card-text"><b>$170 CAD</b>/night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 py-4">
-                    <div class="card h-100">
-                        <a href="/details">
-                            <img src="images/room_6.jpg" alt="Room picture" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title">Room with Minimal Design Style</h4>
-                            <p class="card-text">2 guest | Room | 1 bed | 1 bath</p>
-                            <p class="card-text"><b>$120 CAD</b>/night</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        
+                </div>    
+            {{/each}}   {{/if}} 
+            </div>                       
+        </div>       
 
         {{> footer}}
 

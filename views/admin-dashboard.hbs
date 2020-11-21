@@ -25,22 +25,37 @@
 
         {{> header}}
         
-        <div class="sign-up-bg h-75 container-fluid">
-            <div class="thank-you-img">
-                <div class="thank-you-text">
-                <h1> Admin dashboard</h1>
-                {{#if data.fName}}
-                <h1> Welcome <span class="data-name">{{data.fName}} {{data.lName}}!</span></h1>
-                <br><br>
-                {{else }}
-                    {{#if data.username}}
-                    <h1> Welcome <span class="data-name">{{data.username}}!</span></h1>
-                    <br><br>
-                    {{/if}}
-                {{/if}}                
-                <h1>Thank you for using our services</h1> 
-                </div>                              
+        <!-- Heading -->
+        <div class="col-12 text-center mt-5">
+            <div class="text-dark pt-2"><a href="/add-photo" class="btn btn-custom">Upload a photo</a></div>
+            <div class="border-top border-primary w-25 mx-auto my-3"></div>            
+        </div>
+
+        <div class="container">
+            {{#if hasPhotos }} {{#each photos}}
+            <div class="col-md-4 py-4">
+                <div class="card h-100">
+                    <a href="#">
+                        <img src="./photos/{{fileName}}" alt={{caption}} class="card-img-top">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">{{caption}}</h4>
+                        <p class="card-text">Uploaded: {{uploadDate}}</p>                        
+                        <div class="remove" title="Remove photo">
+                            <form action="/remove-photo/{{filename}}" method="post">
+                            <button type="submit">
+                                <img src="images/trash_can.jpg"/>
+                            </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
+            {{/each}} {{else}}
+            <p>
+            You have no photos uploaded yet
+            </p>
+            {{/if}}
         </div>
         
         {{> footer}}

@@ -30,9 +30,12 @@
 
         <!-- Form -->
         <div class="login-bg">
-            <div class="container p-4 w-50 my-5 bg-form">                
-                <h3 class="text-center py-3 form-header-custom">LOGIN</h3>                    
-                <form class="needs-validation" action="/login" method="POST" enctype="multipart/form-data" novalidate>
+            <div class="container p-4 w-50 my-5 bg-form">                      
+                <h3 class="text-center py-3 form-header-custom">Please login below</h3>
+                {{#if errorMsg}}
+                    <h5>{{errorMsg}}</h5>
+                {{/if}}                    
+                <form class="needs-validation" action="/login" method="POST" novalidate>
                     <div class="form-group">
                         <input id="username" name="username" type="text" class="form-control" placeholder="Username" tabindex="1" autofocus required>
                         <div class="invalid-feedback">Please enter username</div>

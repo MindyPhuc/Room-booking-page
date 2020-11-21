@@ -17,21 +17,18 @@ const mongoose = require("mongoose");
  // define the BnB schema ======== CHECK the type of host, photo =================
  const RoomSchema = new Schema({
     "title": String,
-    "description": Text,
-    "host": {
-        type: String,
-        unique: true
-    },
+    "description": String,    
     "address": String,
     "city": String,
-    "placeType": String,
+    "type": String,
     "guest": Number,
     "price": Number,
-    "photos": {
-        "photoID": String//?????
-    }
+    "photos": [
+        {"fileName": String}
+    ]     
+    
  });
  
  //here we saving our collectionSchema with the name user in database  
   //userModel will contain the instance of the user for manipulating the data.  
- module.exports = mongoose.model('Rooms', RoomSchema);
+ module.exports = mongoose.model('rooms', RoomSchema);

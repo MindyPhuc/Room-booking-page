@@ -31,15 +31,14 @@
         <!-- Form -->
         <div class="sign-up-bg">
             <div class="container p-4 w-50 my-5 bg-form">                
-                <h3 class="text-center py-3 form-header-custom">SIGN UP</h3>
+                <h3 class="text-center py-3 form-header-custom">REGISTER NOW</h3>
                 
-                {{#if exist}}
-                <h5 id="registration-msg">The username or email is already used. <br>
-                Please try again or <a href="/login">Log in</a> if you have an account
-                </h5>
+                {{#if errorMsg}}
+                <h5>{{errorMsg}}</h5>
+                <h5> <a href='/login'>Please Log in</a> if you have an account</h5>
                {{/if}}
                               
-                <form class="needs-validation" action="/registration" method="POST" enctype="multipart/form-data" novalidate>              
+                <form class="needs-validation" action="/registration" method="POST" novalidate>              
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <input id="first-name" name="fName" type="text" class="form-control" placeholder="First Name" tabindex="1" required>

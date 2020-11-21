@@ -20,9 +20,7 @@ const PhotoSchema = new Schema({
     unique: true
   },   
   "caption": String,
-  "room": {
-    //type: room_id ???????????
-  }
+  "room": String, // update later to room_id
   "createdOn": {
     type: Date,
     default: Date.now

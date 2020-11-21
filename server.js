@@ -10,21 +10,25 @@
 const express = require("express"); 
 const app = express(); 
 const path = require("path");
+const _ = require ("underscore");
+const fs = require("fs");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
 const hbs = require('express-handlebars');
-//const {check} = require('express-validator');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const clientSessions = require('client-sessions');
 //const router = express.Router(); // later
 
-const config = require('./views/scripts/config'); // need to change !!!!!!!!!!!!!!
+const config = require('./views/scripts/config'); // need to change .env file !!!!!!!!!!!!!!
+const PHOTODIRECTORY = "./public/photos/";
 
 // import custom Module
 const userModel = require("./models/userModel");
+const photoModel = require("./models/photoModel");
 //const userController = require('./controllers/userController');
-//var roomModel = require("./models/roomModel");
-//var photoModel = require("./models/photoModel");
+const roomModel = require("./models/roomModel");
+
 
 
 // setup port number
@@ -37,23 +41,34 @@ function onHttpStart() {
 app.use(express.static("views"));
 app.use(express.static("public"));
 
-//app.use(bodyParser.json());
-//app.use(expressValidator());
-//app.use('/api', router)
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(clientSessions({
+    cookieName: 'session',
+    secret: 'web322_assignment_session',
+    duration: 2*60*1000,
+    activeDuration: 3*60*1000
+}));
+
 
 // setup for express-handlebars
 app.engine('.hbs', hbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
+// make sure the photos folder exists
+// if not create it
+if (!fs.existsSync(PHOTODIRECTORY)) {
+    fs.mkdirSync(PHOTODIRECTORY);
+}
 // setup parameters for multer
 const STORAGE = multer.diskStorage({
-    destination: "./public/photos/",
+    destination: PHOTODIRECTORY,
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
     }    
 });
 
-const UPLOAD = multer({storage: STORAGE});
+const upload = multer({storage: STORAGE});
 
 // setup parameters for nodemailer
 var transporter = nodemailer.createTransport({
@@ -67,18 +82,42 @@ var transporter = nodemailer.createTransport({
 //=========== CONNECT TO DATABASE ==========================
 mongoose.connect(config.DB_CONN_STR, { useNewUrlParser: true }, { useUnifiedTopology: true });
 mongoose.connection.on('error', err => {console.log("Failed to connect - ${err}");});
-mongoose.connection.once('open', () => {console.log("Connected successfully!")});
+mongoose.connection.once('open', () => {console.log("Connected to MongoDB")});
 
+//===== validate functions ==========    
+function validateUser(req, res, next) {
+   if(!req.body.username || !req.body.email || !req.body.password) {
+       res.render('registration',{errorMsg: "Invalid inputs, please try again", layout: false});
+   } else {
+       next();
+   }
+}
+
+function checkLogin(req,res, next) {
+    if(!req.session.user) {
+        res.render('login', {errorMsg: "Unauthorized access, please login", layout: false});
+    } else {
+        next();
+    }
+}
 
 //===================== ROUTES =============================
 
 //----- GET -----
 app.get("/", function(req,res){    
-    res.render('home', ({layout: false}));
+    res.render('home', ({user: req.session.user, layout: false}));
 });
 
-app.get("/rooms", function (req,res){    
-    res.render('rooms', ({layout: false}));
+app.get("/rooms", function (req,res){
+    roomModel.find().lean()
+        .exec()
+        .then(rooms => {            
+            res.render("rooms", { rooms : rooms, hasRooms: !!rooms.length, user: req.session.user, layout: false });                                
+        })
+        .catch(error => {
+            console.log("ERROR: " + error);
+        });  
+    
 });
 
 
@@ -87,149 +126,163 @@ app.get("/registration", function (req,res){
 });
 
 app.get("/details", function (req,res){    
-    res.render('details', ({layout: false}));
+    res.render('details', ({user: req.session.user, layout: false}));
 });
 
 app.get("/login", function (req,res){    
     res.render('login', ({layout: false}));
 });
 
-app.get("/user-dashboard", function (req,res){    
-    res.render('user-dashboard', ({layout: false}));
+app.get("/user-dashboard", checkLogin, function (req,res){    
+    res.render('user-dashboard', ({user: req.session.user, layout: false}));
 });
 
 app.get("/admin-dashboard", function (req,res){    
     res.render('admin-dashboard', ({layout: false}));
 });
-
-
 // ---- POST ------
-// post data for the registration form to create a user in the database
-app.post('/registration', UPLOAD.single("email"), (req, res) => {  
-    const form_data = req.body;  
-   
-    // server-side validation (email and username must be valid)
-    function isEmail(email) {
-        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;        
-        return reg.test(email);
-    }
-    function validate(data) {
-        return (
-            data.username && data.email && isEmail(data.email)           
-        )
-    }
-    // if the data is valid
-    if(validate(form_data)) {    
-     
-        // add the user if the it does not exist
-        userModel.findOne({ $or: [{username: form_data.username}, {email: form_data.email}]}) // unique username, email
-                    .exec()
-                    .then(user => {
-                        if(!user) { 
-                            // add new user to the database
-                            const newUser = new userModel({  
-                                fName: form_data.fName,
-                                lName: form_data.lName,
-                                email: form_data.email,
-                                username: form_data.username,
-                                password: form_data.password   
-                            });
-                            newUser.save(error=> {
-                                if(error){  
-                                    console.log('error occurred',err)  
-                                }  
-                                else{                                       
-                                    res.render('user-dashboard',{
-                                        data: form_data,
-                                        layout: false
-                                    })
-                                    // send confirmation email
-                                    var emailRenter = {
-                                        from: 'tmphuynhweb322@gmail.com',
-                                        to: form_data.email,
-                                        subject: 'MinBnB - Successful Sign up',
-                                        html: '<p> Hello ' + form_data.fName + ' ' + form_data.lName + ',' + 
-                                             '</p><p>Thank you for signing up at MinBnB</p>'
-                                    };
-                                    transporter.sendMail(emailRenter, (error, info) => {
-                                        if (error) {
-                                            console.log("ERROR: " + error);
-                                        } else {
-                                            console.log("SUCCESS: " + info.response);
-                                        }
-                                    });
-                                }
-                            })                           
-                                         
-                        } else {
-                            console.log("User exists");
-                            
-                            res.render('registration', {
-                                exist: true,
-                                layout: false
-                            })
-                        }                        
-                    })
-                    .catch(error => {
-                        console.log("ERROR: " + error);
-                    });       
+// =========== REGISTRATION =====================
+app.post('/registration', validateUser, (req, res) => { 
            
-    } else {
-        console.log("Invalid input data");
-        res.redirect('home');
+    // add the user if the it does not exist
+    userModel.findOne({ $or: [{username: req.body.username}, {email: req.body.email}]}) // unique username, email
+        .exec()
+        .then(user => {
+            if(!user) { 
+                // add new user to the database
+                const newUser = new userModel({  
+                    fName: req.body.fName,
+                    lName: req.body.lName,
+                    email: req.body.email,
+                    username: req.body.username,
+                    password: req.body.password   
+                });
+                newUser.save(error=> {
+                    if(error){  
+                        console.log('Error occurred! - ',err)
+                        res.render('registration', {errorMsg: "Error occurred! - Please try again", layout: false});
+                    }  
+                    else {                                       
+                        res.render('user-dashboard',{data: req.body, layout: false});
+                        // send confirmation email
+                        var emailRenter = {
+                            from: 'tmphuynhweb322@gmail.com',
+                            to: req.body.email,
+                            subject: 'MinBnB - Successful Sign up',
+                            html: '<p> Hello ' + req.body.fName + ' ' + req.body.lName + ',' + 
+                                    '</p><p>Thank you for signing up at MinBnB</p>'
+                        };
+                        transporter.sendMail(emailRenter, (error, info) => {
+                            if (error) {
+                                console.log("ERROR: " + error);
+                            } else {
+                                console.log("SUCCESS: " + info.response);
+                            }
+                        });
+                    }
+                })                           
+                                
+            } else { // either username or email existed
+                console.log("User exists");                            
+                res.render('registration',{errorMsg: "Either username or email is already used. Please try again.", layout: false});
+                    
+            }                        
+        })
+        .catch(error => {
+            console.log("ERROR: " + error);
+        });  
+});
+
+// ====== LOG IN ==============
+app.post('/login', (req,res) => {
+
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if(username === "" || password === "") {
+        return res.render('login', {errorMsg: "Both username and password are required!", layout: false});
     }
-  
-})
+
+    // find the user from the database
+    userModel.findOne({username: username})
+    .exec()
+    .then(user => {
+        if(!user){
+            res.render('login', {errorMsg: "Incorrect username or password. Please try again", layout: false});
+        }
+        const passwordOK = user.comparePassword(password);
+
+        if(passwordOK) {
+            req.session.user = {
+                username: user.username,
+                email: user.email,
+                fName: user.fName,
+                lName: user.lName
+            };
+            res.render('user-dashboard', {user: req.session.user, layout: false});
+        }      
+           
+    })
+    .catch(error => {
+        console.log("ERROR: " + error);
+    });
+     
+});
+
+app.get('/logout', checkLogin, (req, res) => {
+    req.session.reset();
+    res.redirect('/');
+});
 
 /*
-app.post("/registration", UPLOAD.single("email"), (req,res)=> {
+// ===== ADMIN ===============
+app.get("/admin-dashboard", (req, res) => {
+    photoModel.find().lean()
+    .exec()
+    .then((photos) => {      
+      _.each(photos, (photo) => {
+        photo.uploadDate = new Date(photo.createdOn).toDateString();
+      });
+  
+      // send the html view with our form to the client
+      res.render("admin-dashboard", { photos : photos, hasPhotos: !!photos.length, layout: false });
+    });
+  });
 
-    const FORM_DATA = req.body;
-    
-    var emailRenter = {
-        from: 'tmphuynhweb322@gmail.com',
-        to: FORM_DATA.email,
-        subject: 'MinBnB - Successful Signup',
-        html: '<p> Hello ' + FORM_DATA.fName + ' ' + FORM_DATA.lName + ',' + 
-             '</p><p>Thank you for signing up at MinBnB</p>'
+// add photo - GET
+app.get("/add-photo", (req, res) => {
+    // send the html view with our form to the client
+    res.render("add-photo", { 
+      layout: false // do not use the default Layout (main.hbs)
+    });
+});
+
+// add photo - POST
+app.post("/add-photo", upload.single("photo"), (req, res) => {
+    // setup a PhotoModel object and save it
+    const locals = { 
+      message: "Your photo was uploaded successfully",
+      layout: false // do not use the default Layout (main.hbs)
     };
-    transporter.sendMail(emailRenter, (error, info) => {
-        if (error) {
-            console.log("ERROR: " + error);
-        } else {
-            console.log("SUCCESS: " + info.response);
-        }
+  
+    const photoMetadata = new photoModel({ 
+      room: req.body.room,       
+      caption: req.body.caption,
+      filename: req.file.filename
     });
-
-    // render dashboard page
-    res.render('user-dashboard', {
-        data: FORM_DATA,
-        layout: false
+  
+    photoMetadata.save()
+    .then((response) => {
+      res.render("add-photo", locals);
+    })
+    .catch((err) => {
+      locals.message = "There was an error uploading your photo";  
+      console.log(err);  
+      res.render("add-photo", locals);
     });
-});*/
+  });
 
-// post for the login form
-app.post("/login", UPLOAD.single("username"), (req,res)=> {
-    FORM_DATA = req.body;
-
-    // render dashboard page
-    res.render('user-dashboard', {
-        data: FORM_DATA,
-        layout: false
-    });
-});
-
-// post for the Book Now form
-app.post("/details", (req,res)=> {
-    FORM_DATA = req.body;
-
-    // render dashboard page
-    res.render('user-dashboard', {
-        data: FORM_DATA,
-        layout: false
-    });
-});
-
+*/
 
 
 // setup http server to listen on HTTP_PORT

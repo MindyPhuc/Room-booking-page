@@ -103,7 +103,9 @@ body {
     color:  #0f3057 !important;
 }
 
-.nav-link.active,
+.nav-link.active {
+    color: #008891 !important;
+}
 .nav-link:hover {
     color:#ffc93c !important;
 }
@@ -316,6 +318,14 @@ h3 {
     border-radius: 2%;
 }
 
+.admin-bg {
+    background-image: url('../images/bg_1.jpg');
+    width:100%;
+    padding: 1rem;       
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 .login-bg {
     background-image: url('../images/bg_2.jpg');
