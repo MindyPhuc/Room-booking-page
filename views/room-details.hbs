@@ -1,0 +1,102 @@
+<!-- /* ******************************************
+ * WEB222NGG
+ * Assignment
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: Nov 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ******************************************** */ -->
+
+<!doctype html>
+<html lang="en">
+  {{> head}}
+  <body>
+        {{> header user}}
+       
+        <!-- Heading --> 
+        {{#if room}}     
+        <div class="container pt-4 pb-4">
+            <h3>{{room.title}}</h3>
+            <div class="row">
+                <div class="col-6 text-left">                    
+                    <span><i class="fas fa-star"></i> 4.5 |</span>
+                    <span> <i class="fas fa-medal"></i> Super Host |</span>
+                    <span><a href="#" class="link"><i class="fas fa-map-marker-alt"></i>{{room.city}} </a></span>                                             
+                </div>
+                <div class="col-6 text-right">
+                    <span><a href="#" class="link"><i class="fas fa-share-square"></i> Share</a></span>
+                    <span><a href="#" class="link"><i class="far fa-heart"></i> Save</a></span>
+                </div>
+            </div>                     
+        </div>   
+
+         <div class="container mb-2 mt-3">            
+            <h4 class="form-title"> Add dates for prices</h4>
+            <form class="needs-validation" action="/details" method="post" novalidate>                            
+                <div class="form-row">
+                    <div class="form-group col-4">
+                        <label for="check-in" >CHECK-IN</label>
+                        <input id="check-in" name="check-in" type="date" class="form-control" tabindex="1" required>
+                        <div class="invalid-feedback">Please choose a date</div>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="checkout">CHECKOUT</label>
+                        <input id="checkout" name="checkout" type="date" class="form-control" tabindex="2" required>
+                        <div class="invalid-feedback">Please choose a date</div>
+                    </div>                            
+                    <div class="form-group col-2">
+                        <label for="guests">GUESTS</label>
+                        <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3" required>
+                        <div class="invalid-feedback">Please choose number of guests</div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="submit" class="button-label">Submit</label>                              
+                        <input name="submit" type="submit" class="btn" id="book-now-btn" tabindex="4" value="Book Now">
+                    </div>
+                </div>                    
+            </form>      
+        </div>
+
+        <!-- Room images -->
+        <div class="container pt-4 pb-4">
+            <div class="flex-row d-flex">
+                {{#if photos.[2]}}
+                <div class="col-8 mr-2 p-0">
+                    <img src="/images/{{photos.[0]}}" onerror="this.src='/photos/{{photos.[0]}}'" alt="{{photos.[0]}}" class="img-fluid h-100 w-100">
+                </div>
+                <div class="col-4 p-0">
+                    <div class="row mb-2">
+                        <img src="/images/{{photos.[1]}}" onerror="this.src='/photos/{{photos.[1]}}'"alt="{{photos.[1]}}" class="img-fluid">
+                    </div>
+                    <div class="row mt-2">
+                        <img src="/images/{{photos.[2]}}" onerror="this.src='/photos/{{photos.[2]}}'" alt="{{photos.[2]}}" class="img-fluid">
+                    </div>
+                </div>
+                {{else}} 
+                    {{#if photos.[1]}}
+                    <div class="col-6 mr-1 p-0">
+                        <img src="/images/{{photos.[0]}}" onerror="this.src='/photos/{{photos.[0]}}'" alt="{{photos.[0]}}" class="img-fluid h-100 w-100">
+                    </div>
+                    <div class="col-6 ml-1 p-0">
+                        <img src="/images/{{photos.[1]}}" onerror="this.src='/photos/{{photos.[1]}}'" alt="{{photos.[1]}}" class="img-fluid h-100 w-100">
+                    </div>
+                    {{else}}
+                    <div class="col-12">
+                        <img src="/images/{{photos.[0]}}" onerror="this.src='/photos/{{photos.[0]}}'" alt="{{photos.[0]}}" class="img-fluid h-100 w-100">
+                    </div>
+                    {{/if}}
+                {{/if}}    
+            </div>  
+        </div>                                                                        
+                
+        {{else}}
+        <h3>No Detail</h3>
+        {{/if}}
+       
+        
+       
+       {{> footer}}
+       {{> script}}
+    </body>
+</html>

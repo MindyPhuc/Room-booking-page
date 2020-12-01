@@ -11,7 +11,7 @@
 <nav class="navbar bg-light navbar-light navbar-expand-lg">
     <div class="container">
 
-    <a href="/" class="navbar-brand"><img src="images/logo_8.JPG" alt="Logo" title="Logo"></a>       
+    <a href="/" class="navbar-brand"><img src="/images/logo_8.JPG" alt="Logo" title="Logo"></a>       
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
         <span class="navbar-toggler-icon"></span>
@@ -23,10 +23,10 @@
             <li class="nav-item"><a href="/rooms" class="nav-link">Our Rooms</a></li>     
             {{#if username}}                
                 <li class="nav-item"><a class="nav-link active">Welcome {{fName}}</a></li>
-                <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
+                <li class="nav-item"><a href="../../logout" class="nav-link">Logout</a></li>
             {{else}}
-                <li class="nav-item"><a href="registration" class="nav-link">Sign up</a></li>
-                <li class="nav-item"><a href="login" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="../registration" class="nav-link">Sign up</a></li>
+                <li class="nav-item"><a href="../login" class="nav-link">Login</a></li>
             {{/if}}
         </ul>
     </div>

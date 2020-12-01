@@ -1,0 +1,10 @@
+[
+  {
+    "fName": "Admin",
+    "lName": "Huynh",
+    "email": "admin@email.com",
+    "username": "adminuser",
+    "password": "abcd1234",
+    "isAdmin": true
+  }
+]

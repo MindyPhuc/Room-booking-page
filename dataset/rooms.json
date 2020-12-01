@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Vintage Interior Design Apartment",
+    "description": "1 bedroom (basement) with private entrance and private bathroom, access to kitchenette (fridge. microwave, kettle, coffee maker, toaster, dishes and cutlery) and laundry, 1 parking space available. 5 minute walk to Yonge Sheppard subway. 2 minute drive to 401.",
+    "address": "123 Yonge Street",
+    "city": "Toronto",
+    "type": "Private",
+    "guest": 2,
+    "price": 130,
+    "photos": ["room_1.jpg", "detail_1-1.jpg", "detail_1-2.jpg", "detail_1-3.jpg"]
+  },
+  {
+    "title": "Entire Apartment with Free Parking",
+    "description": "Entire Apartment with Free Parking",
+    "address": "234 Dundas Street",
+    "city": "Mississauga",
+    "type": "Entire",
+    "guest": 4,
+    "price": 250,
+    "photos": ["room_2.jpg"]
+  },
+  {
+    "title": "Spacious Room with Opened Design",
+    "description": "Spacious Room with Opened Design",
+    "address": "",
+    "city": "Edmonton",
+    "type": "Shared",
+    "guest": 3,
+    "price": 180,
+    "photos": ["room_3.jpg"]
+  },
+  {
+    "title": "Private Room Near Downtown",
+    "description": "Private Room Near Downtown",
+    "address": "1 Queens Quay",
+    "city": "Toronto",
+    "type": "Private",
+    "guest": 2,
+    "price": 150,
+    "photos": ["room_4.jpg"]
+  },
+  {
+    "title": "Newly Renovated Room",
+    "description": "Newly Renovated Room",
+    "address": "456 Main St",
+    "city": "Markham",
+    "type": "Entire",
+    "guest": 2,
+    "price": 170,
+    "photos": ["room_5.jpg"]
+  },
+  {
+    "title": "Room with Minimal Design Style",
+    "description": "Room with Minimal Design Style",
+    "address": "389 Cook Rd",
+    "city": "Toronto",
+    "type": "Private",
+    "guest": 2,
+    "price": 120,
+    "photos": ["room_6.jpg"]
+  }
+]

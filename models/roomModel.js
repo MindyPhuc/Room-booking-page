@@ -6,29 +6,27 @@
  * Date: Nov, 2020
  ******************************************** */
 
- // require mongoose and setup the Schema
- const { text } = require("express");
+// require mongoose and setup the Schema
 const mongoose = require("mongoose");
- const Schema = mongoose.Schema;
- 
- // use bluebird promise library with mongoose
- mongoose.Promise = require("bluebird");
- 
- // define the BnB schema ======== CHECK the type of host, photo =================
- const RoomSchema = new Schema({
+
+const {
+    Schema
+} = mongoose;
+
+// use bluebird promise library with mongoose
+mongoose.Promise = require("bluebird");
+
+// define the BnB schema ======== CHECK the type of host, photo =================
+const RoomSchema = new Schema({
     "title": String,
-    "description": String,    
+    "description": String,
     "address": String,
     "city": String,
     "type": String,
     "guest": Number,
     "price": Number,
-    "photos": [
-        {"fileName": String}
-    ]     
-    
- });
- 
- //here we saving our collectionSchema with the name user in database  
-  //userModel will contain the instance of the user for manipulating the data.  
- module.exports = mongoose.model('rooms', RoomSchema);
+    "photos": Array
+});
+
+
+module.exports = mongoose.model('rooms', RoomSchema);

@@ -1,0 +1,131 @@
+<!-- /* ******************************************
+ * WEB222NGG
+ * Assignment 
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: Nov 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ******************************************** */ -->
+
+<!doctype html>
+<html lang="en">
+  {{> head}}
+  <body>
+
+        {{> header user}}        
+        <div class="sign-up-bg">
+            <div class="container p-4 w-50 my-5 bg-form">                           
+                {{#if room._id}}
+                    <h3 class="text-center py-3 form-header-custom">EDITING ROOM</h3>
+                {{else}}
+                    <h3 class="text-center py-3 form-header-custom">ADDING A ROOM</h3>
+                {{/if}}
+                              
+                <form class="needs-validation" action="/rooms/Edit" method="POST" novalidate enctype="multipart/form-data">                    
+                    {{#if room._id}}            
+                        <input type="hidden" name="edit" value="1" />
+                        <input type="hidden" name="ID" value="{{room._id}}" />
+                    {{else}}    
+                        <input type="hidden" name="edit" value="0" />
+                    {{/if}}
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input id="title" name="title" value="{{room.title}}" type="text" class="form-control" placeholder="Room title" tabindex="1" required>
+                            <div class="invalid-feedback">Please enter room title</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea id="description" name="description" value="{{room.description}}" type="text" class="form-control" placeholder="Room description" tabindex="2"></textarea>
+                            <div class="invalid-feedback">Please enter room description</div>
+                        </div>
+                    </div>                    
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <input id="address" name="address" value="{{room.address}}" type="text" class="form-control" placeholder="Address" tabindex="3" required>
+                            <div class="invalid-feedback">Please enter the address</div>
+                        </div>
+                                                       
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-10">
+                            <input id="city" name="city" type="text" class="form-control" list="cities" placeholder="Choose a city" tabindex="4">
+                        <datalist id="cities">
+                            <option value="Toronto"></option>
+                            <option value="Edmonton"></option>
+                            <option value="Hamilton"></option>
+                            <option value="London"></option>
+                            <option value="Mississauga"></option>
+                            <option value="Brampton"></option>
+                            <option value="Markham"></option>
+                            <option value="Richmond Hill"></option>
+                            <option value="Vancouver"></option>
+                            <option value="Ottawa"></option>
+                            <option value="Montreal"></option>
+                            <option value="Calgary"></option>
+                            <option value="Victoria"></option>
+                            <option value="Quebec"></option>
+                            <option value="Saskatoon"></option>
+                        </datalist> 
+                        </div>
+                    </div>                       
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Type</label>
+                        <div class="col-sm-10">
+                            <input id="type" name="type" type="text" class="form-control" list="types" placeholder="Choose a type" tabindex="5" required>
+                            <div class="invalid-feedback">Please choose a type</div>
+                            <datalist id="types">
+                                <option value="Private"></option>
+                                <option value="Entire"></option>
+                                <option value="Shared"></option>                           
+                            </datalist> 
+                        </div>
+                                                         
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6 row">
+                            <label class="col-sm-4 col-form-label">Guest</label>
+                            <div class="col-sm-8">
+                                <input id="guest" name="guest" value="{{room.guest}}" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="6" required>
+                                <div class="invalid-feedback">Please add the number of guest</div>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group col-sm-6 row">
+                            <label class="col-sm-4 col-form-label">Price</label>
+                            <div class="col-sm-8">
+                                <input id="price" name="price" value="{{room.price}}" type="number" min="1" step="any" class="form-control" placeholder="Price in CAD" tabindex="7" required>
+                                <div class="invalid-feedback">Please enter the price</div>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                    {{#if room._id}}
+                    {{else}}
+                    <div class="form-group row">
+                        <label for="photo"class="col-sm-2 col-form-label">Photo</label>
+                        <div class="col-sm-10">
+                            <input id="photo" name="photo" type="file" require>
+                        </div>   
+                    </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <div class="button">
+                            <button type="submit" class="btn btn-custom w-100" tabindex="8">Submit</button>
+                        </div>
+                    </div>                        
+                </form>                 
+            </div>
+        </div>
+
+
+        
+        {{> footer}}        
+        {{> script}}
+    </body>
+</html>

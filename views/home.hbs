@@ -1,25 +1,15 @@
 <!-- /* ******************************************
  * WEB222NGG
- * Assignment 2
+ * Assignment
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: October 24, 2020
+ * Date: Nov 2020
  ********************************************
  * images from unsplash.com | canva.com
  ******************************************** */ -->
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/styles.css">
-    
-    <title>WEB322 Assignment</title>
-  </head>
+  {{> head}}
   <body>
 
     {{> header user}}
@@ -28,7 +18,7 @@
     <div class="container">
       <div class="col-sx-6" id="search-bar">
         <h2> Book great places to stay</h2>
-        <form class="form-wrapper" action="/rooms" method="GET">                            
+        <form class="form-wrapper" action="/rooms/search" method="POST">                            
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="location">WHERE</label>
@@ -162,13 +152,7 @@
       </div>
     </div>
 
-    {{> footer}}  
-
-   
-    <!-- jQuery, Popper.js, Bootstrap JS, Font Awesome JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    {{> footer}}   
+    {{> script}}
   </body>
 </html>

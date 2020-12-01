@@ -6,7 +6,7 @@
  * Date: Nov, 2020
  ******************************************** */
 
- // require mongoose and setup the Schema
+// require mongoose and setup the Schema
 const mongoose = require("mongoose");
 const emailValidator = require("email-validator");
 const bcrypt = require('bcrypt');
@@ -17,9 +17,8 @@ const Schema = mongoose.Schema;
 // use bluebird promise library with mongoose
 mongoose.Promise = require("bluebird");
 
-// define the user schema (normal user)
-// admin user will have an extra field: "admin": true
-const UserSchema = new Schema({ 
+// define the user schema (default as normal user)
+const UserSchema = new Schema({
   "fName": {
     type: String,
     trim: true
@@ -29,12 +28,14 @@ const UserSchema = new Schema({
     trim: true
   },
   "email": {
-    type: String,    
+    type: String,
     required: true,
     unique: true,
     trim: true,
-    lowercase: true,  // case insensitive
-    index: {unique: true},
+    lowercase: true, // case insensitive
+    index: {
+      unique: true
+    },
     validate: {
       validator: emailValidator.validate,
       message: props => `${props.value} is not a valid email address!`,
@@ -42,25 +43,33 @@ const UserSchema = new Schema({
   },
   "username": {
     type: String,
-    unique: true,   
+    unique: true,
     required: true,
     trim: true,
-    index: {unique: true},
+    index: {
+      unique: true
+    },
     minlength: 3
   },
-  "password":   {
-    type: String,       
+  "password": {
+    type: String,
     required: true,
     trim: true,
-    index: {unique: true},
+    index: {
+      unique: true
+    },
     minlength: 8
   },
+  "isAdmin": {
+    type: Boolean,
+    default: false
+  }
 });
 
 // encrypt password
-UserSchema.pre('save', async function preSave(next){
+UserSchema.pre('save', async function preSave(next) {
   const user = this;
-  if(!user.isModified('password')) return next();
+  if (!user.isModified('password')) return next();
   try {
     const hash = await bcrypt.hash(user.password, SALT_ROUNDS);
     user.password = hash;
