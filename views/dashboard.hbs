@@ -1,0 +1,94 @@
+<!-- /* ******************************************
+ * WEB222NGG
+ * Assignment 2
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: October 24, 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ******************************************** */ -->
+
+<!doctype html>
+<html lang="en">
+  {{> head}}
+  <body>
+
+        {{> header user }}
+        
+        {{#unless user.isAdmin}}
+            <!-- searching form -->
+            {{> search}}
+        {{/unless}}
+
+        <div class="col-12 text-center mt-5">
+            <h1 class="text-dark pt-4">Dashboard</h1>
+            <div class="border-top border-primary w-25 mx-auto my-3"></div>
+            {{#if user.isAdmin}}            
+                <h1 class="text-dark">Admin</h1>
+            {{/if}}
+        </div>
+
+        <div class="container">
+            <div class="card mx-auto text-center bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Profile</div>
+                <div class="card-body">                    
+                    <p class="card-text">Username: {{user.username}}</p>
+                    <p class="card-text">Email: {{user.email}}</p>
+                </div>
+            </div>            
+        </div>
+
+        {{!-- admin options --}}
+        {{#if user.isAdmin}}
+            <div class="container">
+                    <div class="row my-5">
+                    <div class="col-md-6 text-center my-4">
+                        <h1><a href="/rooms" class="nav-link btn-light" role="button">View Rooms</a></h1>
+                    </div>
+                    <div class="col-md-6 text-center my-4">
+                        <h1><a href="/rooms/Edit" class="nav-link btn-light" role="button">Add a New Room</a></h1>
+                    </div>
+                </div>          
+            </div>
+        {{else}}
+            {{!-- normal user --}}
+            {{#if hasBookings}}
+                <h1 class="text-dark pt-4 text-center">My Booking</h1>
+                <div class="border-top border-primary w-25 mx-auto my-3"></div>
+                <div class="container">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col-3">Room</th>
+                            <th scope="col-2">City</th>
+                            <th scope="col-2">Check in</th>
+                            <th scope="col-2">Check out</th>
+                            <th scope="col-1">Guest</th>
+                            <th scope="col-1">Price</th>
+                            <th scope="col-1">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each bookings}}
+                            <tr>
+                                <th scope="row" class="font-weight-normal">{{this.room_title}}</th>
+                                <th scope="row"class="font-weight-normal">{{this.room_location}}</th>
+                                <th scope="row"class="font-weight-normal">{{this.dateIn}}</th>
+                                <th scope="row"class="font-weight-normal">{{this.dateOut}}</th>
+                                <th scope="row"class="font-weight-normal">{{this.guest}}</th>
+                                <th scope="row"class="font-weight-normal">${{this.price}}</th>
+                                <th scope="row"class="font-weight-normal">${{this.total}}</th>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                </div>
+                                
+            {{else}}
+                <h1 class="text-dark pt-4 text-center">You don't have any booking yet</h1>
+            {{/if}}    
+        {{/if}}
+        {{> footer}}        
+        {{> script}}
+    </body>
+</html>

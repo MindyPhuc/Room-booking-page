@@ -105,15 +105,14 @@
                             
                         </div> 
                     </div>
-                    {{#if room._id}}
-                    {{else}}
+                    {{#unless room._id}}
                     <div class="form-group row">
                         <label for="photo"class="col-sm-2 col-form-label">Photo</label>
                         <div class="col-sm-10">
                             <input id="photo" name="photo" type="file" require>
                         </div>   
                     </div>
-                    {{/if}}
+                    {{/unless}}
                     <div class="form-group">
                         <div class="button">
                             <button type="submit" class="btn btn-custom w-100" tabindex="8">Submit</button>

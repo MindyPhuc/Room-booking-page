@@ -19,53 +19,8 @@
        {{#if user.isAdmin}}
        <h1>Admin</h1>
        {{else}}
-        <div class="container">
-            <div class="col-sx-6" id="search-bar">
-            <h2> Book great places to stay</h2>
-            <form class="form-wrapper" action="/rooms/search" method="POST">                            
-                <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <label for="location">WHERE</label>
-                        <input id="location" name="location" type="text" class="form-control" list="cities" placeholder="Where are you going?" tabindex="1">
-                        <datalist id="cities">
-                            <option value="Toronto"></option>
-                            <option value="Edmonton"></option>
-                            <option value="Hamilton"></option>
-                            <option value="London"></option>
-                            <option value="Mississauga"></option>
-                            <option value="Brampton"></option>
-                            <option value="Markham"></option>
-                            <option value="Richmond Hill"></option>
-                            <option value="Vancouver"></option>
-                            <option value="Ottawa"></option>
-                            <option value="Montreal"></option>
-                            <option value="Calgary"></option>
-                            <option value="Victoria"></option>
-                            <option value="Quebec"></option>
-                            <option value="Saskatoon"></option>
-                        </datalist>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="check-in">CHECK-IN</label>
-                        <input id="check-in" name="check-in" type="date" class="form-control" tabindex="2">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="checkout">CHECKOUT</label>
-                        <input id="checkout" name="checkout" type="date" class="form-control" tabindex="3">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="guests">GUESTS</label>
-                        <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="4">
-                    </div>
-        
-                    <div class="form-group col-md-1">
-                        <label for="search" class="button-label">Submit</label>                                       
-                        <input name="search" type="submit" class="btn btn-custom" id="search-bar-btn" tabindex="5" value="Search">                                                                               
-                    </div>
-                </div>      
-            </form>
-            </div>
-        </div>
+        {{!-- search form --}}
+        {{> search}}
         {{/if}}
         <!-- Heading -->
         <div class="col-12 text-center mt-5">         
@@ -81,26 +36,52 @@
         <!-- Room listing section -->   
         <div class="container">
             <div class="row justify-content-center">
-                {{#if hasRooms}} {{#each rooms}}
+                {{#if hasRooms}} {{#each rooms}}                
                     <div class="col-12 col-sm-6 col-md-4 py-4">
                         <div class="card h-100">
                             <a href="/rooms/{{_id}}">
                                 <img src="/images/{{photos.[0]}}" onerror="this.src='/photos/{{photos.[0]}}'" alt="{{photos.[0]}}" class="card-img-top">
                             </a>
                             <div class="card-body">
-                                <h4 class="card-title">{{title}}</h4>                                
+                                <h4 class="card-title">{{title}}</h4> 
+                                <p>Room ID: {{_id}}</p>                               
                                 <p class="card-text">{{guest}} guest | {{type}} | <i>{{city}}</i></p>
-                                <p class="card-text"><b>${{price}} CAD</b>/night</p>                                                              
-                                <div class="row justify-content-between">
-                                    <a href="/rooms/Delete/{{_id}}">
+                                <p class="card-text"><b>${{price}} CAD</b>/night</p> 
+
+                                {{!-- admin options --}}
+                                {{#if ../user.isAdmin}}
+                                <div class="row justify-content-between">                                    
+                                    <a href="#modalDelete" class="trigger-btn" data-toggle="modal" data-target="#modalDelete">
                                         <img class="icon" src="/images/trash-can.jpg"/>
-                                    </a>
+                                    </a>                              
+                                   
                                     <a href="/{{_id}}/photos" class="nav-link btn-light" role="button">View Photos</a>
                                    <a href="/{{_id}}/photos/Add" class="nav-link btn-light" role="button">Add Photo</a>
                                     <a href="/rooms/Edit/{{_id}}">
                                         <img class="icon" src="/images/edit-icon.png"/>
                                     </a>                                 
-                                </div>                                                                                  
+                                </div>
+                                <div id="modalDelete" class="modal fade">
+                                    <div class="modal-dialog modal-confirm">
+                                        <div class="modal-content">
+                                            <div class="modal-header flex-column"> 
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                                           					
+                                                <h4 class="modal-title w-100">Are you sure?</h4> 
+                                            </div>
+                                            <form action="/rooms/Delete/{{this._id}}" method="POST">
+                                                <div class="modal-body">
+                                                    <p>Do you really want to delete this record? This process cannot be undone.</p>
+                                                    <p>Room ID: {{this._id}}</p>
+                                                </div>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-custom" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}                                                                                  
                             </div>
                         </div>
                     </div>    

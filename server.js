@@ -13,6 +13,7 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
+const _ = require("underscore");
 const fs = require("fs");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
@@ -22,6 +23,7 @@ const mongoose = require('mongoose');
 const clientSessions = require('client-sessions');
 const userModel = require("./models/userModel");
 const roomModel = require("./models/roomModel");
+const bookingModel = require("./models/bookingModel");
 
 /* #endregion */
 
@@ -160,23 +162,36 @@ app.get("/details", (req, res) => {
     }));
 });
 
-app.get("/login", (req, res) => {
-    res.render('login', ({
-        layout: false
-    }));
-});
 
-app.get("/user-dashboard", checkLogin, (req, res) => {
-    res.render('user-dashboard', ({
-        user: req.session.user,
-        layout: false
-    }));
-});
-
-app.get("/admin-dashboard", (req, res) => {
-    res.render('admin-dashboard', ({
-        layout: false
-    }));
+app.get("/dashboard", (req, res) => {
+    const user = req.session.user;
+    if (user && !user.isAdmin) {
+        bookingModel.find({
+                user_id: user._id
+            })
+            .lean()
+            .exec()
+            .then(bookings => {
+                _.each(bookings, (booking) => {
+                    booking.dateIn = new Date(booking.check_in).toDateString();
+                    booking.dateOut = new Date(booking.check_out).toDateString();
+                });
+                res.render("dashboard", {
+                    bookings: bookings,
+                    hasBookings: !!bookings.length,
+                    user: user,
+                    layout: false
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    } else {
+        res.render("dashboard", {
+            user: user,
+            layout: false
+        });
+    }
 });
 
 
@@ -204,13 +219,13 @@ app.post('/registration', validateUser, (req, res) => {
                 });
                 newUser.save(error => {
                     if (error) {
-                        console.log('Error occurred! - ', err)
+                        console.log('Error occurred! - ', error)
                         res.render('registration', {
                             errorMsg: "Error occurred! - Please try again",
                             layout: false
                         });
                     } else {
-                        res.render('user-dashboard', {
+                        res.render('dashboard', {
                             data: req.body,
                             layout: false
                         });
@@ -247,6 +262,11 @@ app.post('/registration', validateUser, (req, res) => {
 });
 
 // #region LOGIN - LOGOUT
+app.get("/login", (req, res) => {
+    res.render('login', ({
+        layout: false
+    }));
+});
 
 app.post('/login', (req, res) => {
 
@@ -275,23 +295,17 @@ app.post('/login', (req, res) => {
             const passwordOK = user.comparePassword(password);
             if (passwordOK) {
                 req.session.user = {
+                    _id: user._id,
                     username: user.username,
                     email: user.email,
                     fName: user.fName,
                     lName: user.lName,
                     isAdmin: user.isAdmin
                 };
-                if (user.isAdmin) {
-                    res.render('admin-dashboard', {
-                        user: req.session.user,
-                        layout: false
-                    });
-                } else {
-                    res.render('user-dashboard', {
-                        user: req.session.user,
-                        layout: false
-                    });
-                }
+                res.render('dashboard', {
+                    user: req.session.user,
+                    layout: false
+                });
 
             }
 
@@ -357,7 +371,7 @@ app.get("/rooms/Edit/:roomID", checkLogin, (req, res) => {
         });
 });
 
-app.get("/rooms/Delete/:roomID", checkLogin, (req, res) => {
+app.post("/rooms/Delete/:roomID", checkLogin, (req, res) => {
     const roomID = req.params.roomID;
     roomModel.deleteOne({
             _id: roomID
@@ -429,6 +443,48 @@ app.post('/rooms/Edit', checkLogin, upload.single("photo"), (req, res) => {
 
 });
 
+// dynamic content - room-details page
+app.get('/rooms/:room_id', (req, res) => {
+    var id = req.params.room_id;
+    if (!mongoose.Types.ObjectId.isValid(id)) return false;
+    roomModel.findOne({
+            _id: id
+        }).lean()
+        .exec()
+        .then(room => {
+            res.render("room-details", {
+                room: room,
+                photos: room.photos,
+                user: req.session.user,
+                layout: false
+            });
+        })
+        .catch(error => {
+            console.log("ERROR: " + error);
+        });
+});
+
+// search for rooms by location
+app.post("/rooms/search", (req, res) => {
+    req.params.location = req.body.location;
+    roomModel.find({
+            city: req.params.location
+        })
+        .lean()
+        .exec()
+        .then(rooms => {
+            res.render("rooms", {
+                rooms: rooms,
+                hasRooms: !!rooms.length,
+                layout: false
+            })
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+});
+// #endregion
 
 // #region PHOTOS
 app.get("/:roomID/photos/Add", checkLogin, (req, res) => {
@@ -495,7 +551,7 @@ app.get("/:roomID/photos", (req, res) => {
         });
 });
 
-app.get("/:roomID/photos/Delete/:fileName", checkLogin, (req, res) => {
+app.post("/:roomID/photos/Delete/:fileName", checkLogin, (req, res) => {
     const photoFileName = req.params.fileName;
 
     const roomID = req.params.roomID;
@@ -528,51 +584,52 @@ app.get("/:roomID/photos/Delete/:fileName", checkLogin, (req, res) => {
 
 // #endregion
 
-// dynamic content - room-details page
-app.get('/rooms/:room_id', (req, res) => {
-    var id = req.params.room_id;
-    if (!mongoose.Types.ObjectId.isValid(id)) return false;
+// #region BOOKINGS
+app.post("/:userID/:roomID/booking", checkLogin, (req, res) => {
+    const userID = req.params.userID;
+    const roomID = req.params.roomID;
+    const dateIn = new Date(req.body.check_in);
+    const dateOut = new Date(req.body.check_out);
+    const days = Math.ceil((dateOut.getTime() - dateIn.getTime()) / (1000 * 3600 * 24));
+    const newBooking = new bookingModel({
+        room_id: roomID,
+        user_id: userID,
+        check_in: dateIn,
+        check_out: dateOut,
+        day: days,
+        guest: req.body.guest
+    });
     roomModel.findOne({
-            _id: id
-        }).lean()
+            _id: roomID
+        })
         .exec()
         .then(room => {
-            res.render("room-details", {
-                room: room,
-                photos: room.photos,
-                user: req.session.user,
-                layout: false
-            });
-        })
-        .catch(error => {
-            console.log("ERROR: " + error);
-        });
-});
-
-// search for rooms by location
-app.post("/rooms/search", (req, res) => {
-    req.params.location = req.body.location;
-    roomModel.find({
-            city: req.params.location
-        })
-        .lean()
-        .exec()
-        .then(rooms => {
-            res.render("rooms", {
-                rooms: rooms,
-                hasRooms: !!rooms.length,
-                layout: false
+            newBooking.room_title = room.title;
+            newBooking.room_location = room.city;
+            newBooking.price = room.price;
+            newBooking.total = newBooking.day * room.price;
+            newBooking.save(error => {
+                if (error) {
+                    console.log(error);
+                    res.render('room-detail', {
+                        errorMsg: "Error occurred! - Please try again",
+                        layout: false
+                    });
+                } else {
+                    res.redirect("/dashboard");
+                }
             })
         })
         .catch(error => {
             console.log(error);
         });
-
 });
+// #endregion
+
 
 // #endregion
 
-// #endregion
+
 
 
 

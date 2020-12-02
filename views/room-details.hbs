@@ -31,23 +31,24 @@
             </div>                     
         </div>   
 
-         <div class="container mb-2 mt-3">            
+         <div class="container mb-2 mt-3"> 
+             <p> User: {{user._id}}</p>           
             <h4 class="form-title"> Add dates for prices</h4>
-            <form class="needs-validation" action="/details" method="post" novalidate>                            
+            <form class="needs-validation" action="/{{user._id}}/{{room._id}}/booking" method="post" novalidate>                            
                 <div class="form-row">
                     <div class="form-group col-4">
-                        <label for="check-in" >CHECK-IN</label>
-                        <input id="check-in" name="check-in" type="date" class="form-control" tabindex="1" required>
+                        <label for="check_in" >CHECK-IN</label>
+                        <input id="check_in" name="check_in" type="date" class="form-control" tabindex="1" required>
                         <div class="invalid-feedback">Please choose a date</div>
                     </div>
                     <div class="form-group col-4">
-                        <label for="checkout">CHECKOUT</label>
-                        <input id="checkout" name="checkout" type="date" class="form-control" tabindex="2" required>
+                        <label for="check_out">CHECKOUT</label>
+                        <input id="check_out" name="check_out" type="date" class="form-control" tabindex="2" required>
                         <div class="invalid-feedback">Please choose a date</div>
                     </div>                            
                     <div class="form-group col-2">
-                        <label for="guests">GUESTS</label>
-                        <input id="guests" name="guests" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3" required>
+                        <label for="guest">GUESTS</label>
+                        <input id="guest" name="guest" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3" required>
                         <div class="invalid-feedback">Please choose number of guests</div>
                     </div>
                     <div class="form-group col-2">
@@ -93,8 +94,7 @@
         {{else}}
         <h3>No Detail</h3>
         {{/if}}
-       
-        
+             
        
        {{> footer}}
        {{> script}}
