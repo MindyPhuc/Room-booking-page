@@ -25,6 +25,15 @@ const RoomSchema = new Schema({
     "type": String,
     "guest": Number,
     "price": Number,
+    "host": String,
+    "clean": {
+        type: Boolean,
+        default: true
+    },
+    "selfCheckIn": {
+        type: Boolean,
+        default: true
+    },
     "photos": Array
 });
 

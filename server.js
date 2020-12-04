@@ -336,14 +336,14 @@ app.get("/rooms", (req, res) => {
 
 });
 
-app.get("/rooms/Edit", checkLogin, checkAdmin, (req, res) => {
+app.get("/rooms/Edit", checkAdmin, (req, res) => {
     res.render("roomEdit", {
         user: req.session.user,
         layout: false
     });
 })
 
-app.get("/rooms/Edit/:roomID", checkLogin, checkAdmin, (req, res) => {
+app.get("/rooms/Edit/:roomID", checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
 
     roomModel.findOne({
@@ -364,7 +364,7 @@ app.get("/rooms/Edit/:roomID", checkLogin, checkAdmin, (req, res) => {
         });
 });
 
-app.post("/rooms/Delete/:roomID", checkLogin, checkAdmin, (req, res) => {
+app.post("/rooms/Delete/:roomID", checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
     roomModel.deleteOne({
             _id: roomID
@@ -374,7 +374,7 @@ app.post("/rooms/Delete/:roomID", checkLogin, checkAdmin, (req, res) => {
         });
 })
 
-app.post('/rooms/Edit', checkLogin, checkAdmin, upload.single("photo"), (req, res) => {
+app.post('/rooms/Edit', checkAdmin, upload.single("photo"), (req, res) => {
 
     if (req.body.edit === "1") {
         //editing
@@ -386,7 +386,8 @@ app.post('/rooms/Edit', checkLogin, checkAdmin, upload.single("photo"), (req, re
             city: req.body.city,
             type: req.body.type,
             guest: req.body.guest,
-            price: req.body.price
+            price: req.body.price,
+            host: req.body.host
         })
         roomModel.updateOne({
                 _id: room._id
@@ -399,6 +400,7 @@ app.post('/rooms/Edit', checkLogin, checkAdmin, upload.single("photo"), (req, re
                     type: room.type,
                     guest: room.guest,
                     price: room.price,
+                    host: room.host
                 }
             })
             .exec()
@@ -419,6 +421,7 @@ app.post('/rooms/Edit', checkLogin, checkAdmin, upload.single("photo"), (req, re
             type: req.body.type,
             guest: req.body.guest,
             price: req.body.price,
+            host: req.body.host,
             photos: req.file.filename
         });
         room.save(error => {

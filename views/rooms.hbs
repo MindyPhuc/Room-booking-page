@@ -16,17 +16,18 @@
 
        <!-- searching form -->
        
-       {{#if user.isAdmin}}
-       <h1>Admin</h1>
-       {{else}}
+       {{#unless user.isAdmin}}       
         {{!-- search form --}}
         {{> search}}
-        {{/if}}
+        {{/unless}}
         <!-- Heading -->
         <div class="col-12 text-center mt-5">         
             {{#if hasRooms}}
                 <h1 class="text-dark pt-2">Room Listing</h1>
-                <div class="border-top border-primary w-25 mx-auto my-3"></div>               
+                <div class="border-top border-primary w-25 mx-auto my-3"></div> 
+                {{#if user.isAdmin}}
+                    <h1 class="text-dark pt-2">Admin</h1>
+                {{/if}}                 
             {{else}}
                 <h1 class="text-dark pt-2">There is no room to display</h1>
                 <div class="border-top border-primary w-25 mx-auto my-3"></div>
@@ -39,9 +40,13 @@
                 {{#if hasRooms}} {{#each rooms}}                
                     <div class="col-12 col-sm-6 col-md-4 py-4">
                         <div class="card h-100">
-                            <a href="/rooms/{{_id}}">
+                            {{#if ../user.isAdmin}}
                                 <img src="/images/{{photos.[0]}}" onerror="this.src='/photos/{{photos.[0]}}'" alt="{{photos.[0]}}" class="card-img-top">
-                            </a>
+                            {{else}}
+                                <a href="/rooms/{{_id}}">
+                                    <img src="/images/{{photos.[0]}}" onerror="this.src='/photos/{{photos.[0]}}'" alt="{{photos.[0]}}" class="card-img-top">
+                                </a>
+                            {{/if}}
                             <div class="card-body">
                                 <h4 class="card-title">{{title}}</h4> 
                                 <p>Room ID: {{_id}}</p>                               
@@ -51,14 +56,14 @@
                                 {{!-- admin options --}}
                                 {{#if ../user.isAdmin}}
                                 <div class="row justify-content-between">                                    
-                                    <a href="#modalDelete" class="trigger-btn" data-toggle="modal" data-target="#modalDelete{{_id}}">
-                                        <img class="icon" src="/images/trash-can.jpg"/>
+                                    <a href="#modalDelete" class="trigger-btn" data-toggle="modal" data-target="#modalDelete">
+                                        <i class="fas fa-trash-alt icon"></i>
                                     </a>                              
                                    
                                     <a href="/{{_id}}/photos" class="nav-link btn-light" role="button">View Photos</a>
                                    <a href="/{{_id}}/photos/Add" class="nav-link btn-light" role="button">Add Photo</a>
                                     <a href="/rooms/Edit/{{_id}}">
-                                        <img class="icon" src="/images/edit-icon.png"/>
+                                        <i class="fas fa-edit icon"></i>
                                     </a>                                 
                                 </div>
                                 <div id="modalDelete" class="modal fade">

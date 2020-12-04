@@ -69,7 +69,7 @@
                     <div class="host-info">
                         <div class="host-info-text">
                             <h4>{{room.title}} hosted by {{room.host}}</h4>
-                            <p> {{room.guest}} guest | {{room.type}} | <b>${{room.price}}</b></p>                            
+                            <p> {{room.guest}} guest | {{room.type}} | <b>${{room.price}} CAD/night</b></p>                            
                         </div>                        
                     </div>
                     <div class="room-info">
@@ -79,12 +79,9 @@
                             {{#if room.clean}}
                                 <h5><i class="fas fa-hand-sparkles"></i> Enhanced Clean</h5>
                             {{/if}}
-                            {{#if room.selfCheckin}}
+                            {{#if room.selfCheckIn}}
                                 <h5><i class="fas fa-door-open"></i> Self Check-in</h5>
-                            {{/if}}
-                            {{#if room.cancelPolicy}}
-                            <h5><i class="far fa-calendar-times"></i> Cancellation Policy</h5>
-                            {{/if}}
+                            {{/if}}                            
                         </div>
                         <div class="room-desc"                        >
                             {{room.description}}

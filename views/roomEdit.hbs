@@ -42,11 +42,19 @@
                             <textarea id="description" name="description" type="text" class="form-control" placeholder="Room description" tabindex="2">{{room.description}}</textarea>
                             <div class="invalid-feedback">Please enter room description</div>
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Host</label>
+                        <div class="col-sm-10">
+                            <input id="host" name="host" value="{{room.host}}" type="text" class="form-control" placeholder="Host's name" tabindex="3" required>
+                            <div class="invalid-feedback">Please enter the address</div>
+                        </div>
+                                                       
                     </div>                    
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Address</label>
                         <div class="col-sm-10">
-                            <input id="address" name="address" value="{{room.address}}" type="text" class="form-control" placeholder="Address" tabindex="3" required>
+                            <input id="address" name="address" value="{{room.address}}" type="text" class="form-control" placeholder="Address" tabindex="4" required>
                             <div class="invalid-feedback">Please enter the address</div>
                         </div>
                                                        
@@ -54,7 +62,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">City</label>
                         <div class="col-sm-10">
-                            <input id="city" name="city" type="text" value="{{room.city}}" class="form-control" list="cities" placeholder="Choose a city" tabindex="4">
+                            <input id="city" name="city" type="text" value="{{room.city}}" class="form-control" list="cities" placeholder="Choose a city" tabindex="5">
                         <datalist id="cities">
                             <option value="Toronto"></option>
                             <option value="Edmonton"></option>
@@ -77,7 +85,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Type</label>
                         <div class="col-sm-10">
-                            <input id="type" name="type" type="text" value="{{room.type}}" class="form-control" list="types" placeholder="Choose a type" tabindex="5" required>
+                            <input id="type" name="type" type="text" value="{{room.type}}" class="form-control" list="types" placeholder="Choose a type" tabindex="6" required>
                             <div class="invalid-feedback">Please choose a type</div>
                             <datalist id="types">
                                 <option value="Private"></option>
@@ -86,12 +94,12 @@
                             </datalist> 
                         </div>
                                                          
-                    </div>
+                    </div>                    
                     <div class="form-row">
                         <div class="form-group col-sm-6 row">
                             <label class="col-sm-4 col-form-label">Guest</label>
                             <div class="col-sm-8">
-                                <input id="guest" name="guest" value="{{room.guest}}" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="6" required>
+                                <input id="guest" name="guest" value="{{room.guest}}" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="7" required>
                                 <div class="invalid-feedback">Please add the number of guest</div>
                             </div>
                             
@@ -99,10 +107,9 @@
                         <div class="form-group col-sm-6 row">
                             <label class="col-sm-4 col-form-label">Price</label>
                             <div class="col-sm-8">
-                                <input id="price" name="price" value="{{room.price}}" type="number" min="1" step="any" class="form-control" placeholder="Price in CAD" tabindex="7" required>
+                                <input id="price" name="price" value="{{room.price}}" type="number" min="1" step="any" class="form-control" placeholder="Price in CAD" tabindex="8" required>
                                 <div class="invalid-feedback">Please enter the price</div>
-                            </div>
-                            
+                            </div>                            
                         </div> 
                     </div>
                     {{#unless room._id}}
@@ -112,10 +119,11 @@
                             <input id="photo" name="photo" type="file" require>
                         </div>   
                     </div>
-                    {{/unless}}
+                    {{/unless}}                
+                                      
                     <div class="form-group">
                         <div class="button">
-                            <button type="submit" class="btn btn-custom w-100" tabindex="8">Submit</button>
+                            <button type="submit" class="btn btn-custom w-100" tabindex="9">Submit</button>
                         </div>
                     </div>                        
                 </form>                 

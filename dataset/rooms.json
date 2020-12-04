@@ -1,62 +1,68 @@
 [
   {
     "title": "Vintage Interior Design Apartment",
-    "description": "1 bedroom (basement) with private entrance and private bathroom, access to kitchenette (fridge. microwave, kettle, coffee maker, toaster, dishes and cutlery) and laundry, 1 parking space available. 5 minute walk to Yonge Sheppard subway. 2 minute drive to 401.",
+    "description": "Vintage interior for modern home design is for those who appreciate the elegant simplicity of old things from antique furniture to cute trinkets bought at the beginning of the last century. This is the charm of old-fashioned furniture and knick-knacks, the harmony of space and light, clever design because the apartment, house, or room should be beautiful and stylish, but not overloaded and cluttered.",
     "address": "123 Yonge Street",
     "city": "Toronto",
     "type": "Private",
     "guest": 2,
     "price": 130,
-    "photos": ["room_1.jpg", "detail_1-1.jpg", "detail_1-2.jpg", "detail_1-3.jpg"]
+    "host": "Amy",
+    "photos": ["room_1.jpg", "room_1-2.jpg", "room_1-3.jpg"]
   },
   {
     "title": "Entire Apartment with Free Parking",
-    "description": "Entire Apartment with Free Parking",
+    "description": "Step just beyond our doorstep and onto Bathurst Street where you can walk to local transit, tourist attractions, local restaurants, shops, parks, galleries, pubs and bars. Heck, meet some locals. This location gives you a downtown vibe and an authentic Toronto neighborhood feel. I hope to see you soon!",
     "address": "234 Dundas Street",
-    "city": "Mississauga",
+    "city": "Toronto",
     "type": "Entire",
     "guest": 4,
     "price": 250,
-    "photos": ["room_2.jpg"]
+    "host": "Mindy",
+    "photos": ["room_2.jpg", "room_2-2.jpg", "room_2-3.jpg"]
   },
   {
     "title": "Spacious Room with Opened Design",
-    "description": "Spacious Room with Opened Design",
-    "address": "",
+    "description": "Taking a step away from the highly structured living spaces of the past, our open floor plan designs create spacious, informal interiors that connect common areas. This style has steadily grown in popularity over the years and was first available as a key element of modern homes, but now it can be found within any kind of exterior style.",
+    "address": "178 Street",
     "city": "Edmonton",
     "type": "Shared",
     "guest": 3,
     "price": 180,
-    "photos": ["room_3.jpg"]
+    "host": "Henry",
+    "photos": ["room_3.jpg", "room_3-2.jpg", "room_3-3.jpg"]
   },
   {
     "title": "Private Room Near Downtown",
-    "description": "Private Room Near Downtown",
+    "description": "Private bathroom. Fully equipped in kitchen. Very Cozy and Clean Private basement bedroom with spacious and bright window. Queen size bed with Sealy high-end branded mattress along with very clean linen and duvet, nightstand.",
     "address": "1 Queens Quay",
     "city": "Toronto",
     "type": "Private",
     "guest": 2,
     "price": 150,
-    "photos": ["room_4.jpg"]
+    "host": "Rosa",
+    "photos": ["room_4.jpg", "room_4-2.jpg", "room_4-3.jpg"]
   },
   {
-    "title": "Newly Renovated Room",
-    "description": "Newly Renovated Room",
+    "title": "Newly Renovated Entire Room",
+    "description": "Newly renovated home with ample closet space, tucked away high-end laundry closet, & a lovely powder room to complete your main living space. Upgraded kitchen with high end s.s. appliances, granite counter tops, custom cabinetry & back splash, & large bay window overlooking Main St.",
     "address": "456 Main St",
     "city": "Markham",
     "type": "Entire",
     "guest": 2,
     "price": 170,
-    "photos": ["room_5.jpg"]
+    "host": "Kate",
+    "photos": ["room_5.jpg", "room_5-2.jpg", "room_5-3.jpg"]
   },
   {
     "title": "Room with Minimal Design Style",
-    "description": "Room with Minimal Design Style",
+    "description": "While furniture-filled rooms have loads of options to visually distract from the boring, benign, or broken, there’s a small margin for error in a minimalist space. Having less stuff means everything in the room needs to be both gorgeous and practical.",
     "address": "389 Cook Rd",
     "city": "Toronto",
     "type": "Private",
     "guest": 2,
     "price": 120,
-    "photos": ["room_6.jpg"]
+    "host": "Jyo",
+    "photos": ["room_6.jpg", "room_6-2.jpg", "room_6-3.jpg"]
   }
 ]

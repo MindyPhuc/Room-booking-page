@@ -229,8 +229,7 @@ a > i:hover {
   font-family: 'Roboto Slab', serif;
 }
 .icon {
-  width: 24px;
-  height: 24px;
+  color: grey;
 }
 
 /*=========== photo displaying =================*/
@@ -421,6 +420,10 @@ h3 {
   position: relative;
   left: -35px;
   content: '\2716';
+}
+
+.errMsg {
+  background-color: rgb(248, 203, 203, 0.8);
 }
 
 /*============= Dashboard ==============*/
