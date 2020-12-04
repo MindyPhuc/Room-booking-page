@@ -10,4 +10,15 @@
     <link rel="stylesheet" href="/styles/styles.css">
 
     <title>WEB322 Assignment</title>
+
+    <script src="/js/tinymce.min.js"></script>
+    <script>
+      function startup(){
+        tinymce.init({
+            selector: '#description',
+            width: 600,
+            height: 300
+        });
+      }
+    </script>
 </head>

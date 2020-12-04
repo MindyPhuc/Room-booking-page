@@ -11,7 +11,7 @@
 <!doctype html>
 <html lang="en">
   {{> head}}
-  <body>
+  <body onload='startup()'>
 
         {{> header user}}        
         <div class="sign-up-bg">
@@ -39,7 +39,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea id="description" name="description" value="{{room.description}}" type="text" class="form-control" placeholder="Room description" tabindex="2"></textarea>
+                            <textarea id="description" name="description" type="text" class="form-control" placeholder="Room description" tabindex="2">{{room.description}}</textarea>
                             <div class="invalid-feedback">Please enter room description</div>
                         </div>
                     </div>                    
@@ -54,7 +54,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">City</label>
                         <div class="col-sm-10">
-                            <input id="city" name="city" type="text" class="form-control" list="cities" placeholder="Choose a city" tabindex="4">
+                            <input id="city" name="city" type="text" value="{{room.city}}" class="form-control" list="cities" placeholder="Choose a city" tabindex="4">
                         <datalist id="cities">
                             <option value="Toronto"></option>
                             <option value="Edmonton"></option>
@@ -71,13 +71,13 @@
                             <option value="Victoria"></option>
                             <option value="Quebec"></option>
                             <option value="Saskatoon"></option>
-                        </datalist> 
+                        </datalist>                     
                         </div>
                     </div>                       
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Type</label>
                         <div class="col-sm-10">
-                            <input id="type" name="type" type="text" class="form-control" list="types" placeholder="Choose a type" tabindex="5" required>
+                            <input id="type" name="type" type="text" value="{{room.type}}" class="form-control" list="types" placeholder="Choose a type" tabindex="5" required>
                             <div class="invalid-feedback">Please choose a type</div>
                             <datalist id="types">
                                 <option value="Private"></option>

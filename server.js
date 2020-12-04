@@ -21,9 +21,13 @@ const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const clientSessions = require('client-sessions');
+const createError = require('http-errors');
 const userModel = require("./models/userModel");
 const roomModel = require("./models/roomModel");
 const bookingModel = require("./models/bookingModel");
+const {
+    templateSettings
+} = require('underscore');
 
 /* #endregion */
 
@@ -92,8 +96,8 @@ const upload = multer({
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'tmphuynhweb322@gmail.com',
-        pass: 'Web322////'
+        user: process.env.EMAIL,
+        pass: process.env.PASS
     }
 });
 
@@ -128,7 +132,7 @@ function checkLogin(req, res, next) {
 
 // check admin
 function checkAdmin(req, res, next) {
-    if (!req.body.isAdmin) {
+    if (!req.session.user || !req.session.user.isAdmin) {
         res.render('login', {
             errorMsg: "Unauthorized access, please login as Administrator",
             layout: false
@@ -155,15 +159,8 @@ app.get("/registration", (req, res) => {
     }));
 });
 
-app.get("/details", (req, res) => {
-    res.render('details', ({
-        user: req.session.user,
-        layout: false
-    }));
-});
 
-
-app.get("/dashboard", (req, res) => {
+app.get("/dashboard", checkLogin, (req, res) => {
     const user = req.session.user;
     if (user && !user.isAdmin) {
         bookingModel.find({
@@ -196,7 +193,6 @@ app.get("/dashboard", (req, res) => {
 
 
 app.post('/registration', validateUser, (req, res) => {
-
     // add the user if the it does not exist
     userModel.findOne({
             $or: [{
@@ -225,21 +221,18 @@ app.post('/registration', validateUser, (req, res) => {
                             layout: false
                         });
                     } else {
-                        res.render('dashboard', {
-                            data: req.body,
-                            layout: false
-                        });
+                        res.redirect("login");
                         // send confirmation email
                         var emailRenter = {
-                            from: 'tmphuynhweb322@gmail.com',
-                            to: req.body.email,
+                            from: process.env.EMAIL,
+                            to: newUser.email,
                             subject: 'MinBnB - Successful Sign up',
-                            html: '<p> Hello ' + req.body.fName + ' ' + req.body.lName + ',' +
+                            html: '<p> Hello ' + newUser.fName + ' ' + newUser.lName + ',' +
                                 '</p><p>Thank you for signing up at MinBnB</p>'
                         };
-                        transporter.sendMail(emailRenter, (error, info) => {
-                            if (error) {
-                                console.log("ERROR: " + error);
+                        transporter.sendMail(emailRenter, (err, info) => {
+                            if (err) {
+                                console.log("ERROR: " + err);
                             } else {
                                 console.log("SUCCESS: " + info.response);
                             }
@@ -343,14 +336,14 @@ app.get("/rooms", (req, res) => {
 
 });
 
-app.get("/rooms/Edit", checkLogin, (req, res) => {
+app.get("/rooms/Edit", checkLogin, checkAdmin, (req, res) => {
     res.render("roomEdit", {
         user: req.session.user,
         layout: false
     });
 })
 
-app.get("/rooms/Edit/:roomID", checkLogin, (req, res) => {
+app.get("/rooms/Edit/:roomID", checkLogin, checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
 
     roomModel.findOne({
@@ -371,7 +364,7 @@ app.get("/rooms/Edit/:roomID", checkLogin, (req, res) => {
         });
 });
 
-app.post("/rooms/Delete/:roomID", checkLogin, (req, res) => {
+app.post("/rooms/Delete/:roomID", checkLogin, checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
     roomModel.deleteOne({
             _id: roomID
@@ -381,7 +374,7 @@ app.post("/rooms/Delete/:roomID", checkLogin, (req, res) => {
         });
 })
 
-app.post('/rooms/Edit', checkLogin, upload.single("photo"), (req, res) => {
+app.post('/rooms/Edit', checkLogin, checkAdmin, upload.single("photo"), (req, res) => {
 
     if (req.body.edit === "1") {
         //editing
@@ -487,7 +480,7 @@ app.post("/rooms/search", (req, res) => {
 // #endregion
 
 // #region PHOTOS
-app.get("/:roomID/photos/Add", checkLogin, (req, res) => {
+app.get("/:roomID/photos/Add", checkAdmin, (req, res) => {
     res.render("photoAdd", {
         user: req.session.user,
         roomID: req.params.roomID,
@@ -496,7 +489,7 @@ app.get("/:roomID/photos/Add", checkLogin, (req, res) => {
 
 
 });
-app.post("/:roomID/photos/Add", checkLogin, upload.single("photo"), (req, res) => {
+app.post("/:roomID/photos/Add", checkAdmin, upload.single("photo"), (req, res) => {
     const roomID = req.params.roomID;
     const addedPhoto = req.file.filename;
 
@@ -530,7 +523,7 @@ app.post("/:roomID/photos/Add", checkLogin, upload.single("photo"), (req, res) =
 
 });
 
-app.get("/:roomID/photos", (req, res) => {
+app.get("/:roomID/photos", checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
     roomModel.findOne({
             _id: roomID
@@ -551,7 +544,7 @@ app.get("/:roomID/photos", (req, res) => {
         });
 });
 
-app.post("/:roomID/photos/Delete/:fileName", checkLogin, (req, res) => {
+app.post("/:roomID/photos/Delete/:fileName", checkAdmin, (req, res) => {
     const photoFileName = req.params.fileName;
 
     const roomID = req.params.roomID;
@@ -585,9 +578,9 @@ app.post("/:roomID/photos/Delete/:fileName", checkLogin, (req, res) => {
 // #endregion
 
 // #region BOOKINGS
-app.post("/:userID/:roomID/booking", checkLogin, (req, res) => {
-    const userID = req.params.userID;
-    const roomID = req.params.roomID;
+app.post("/booking", checkLogin, (req, res) => {
+    const userID = req.body.user_id;
+    const roomID = req.body.room_id;
     const dateIn = new Date(req.body.check_in);
     const dateOut = new Date(req.body.check_out);
     const days = Math.ceil((dateOut.getTime() - dateIn.getTime()) / (1000 * 3600 * 24));
@@ -608,30 +601,120 @@ app.post("/:userID/:roomID/booking", checkLogin, (req, res) => {
             newBooking.room_location = room.city;
             newBooking.price = room.price;
             newBooking.total = newBooking.day * room.price;
-            newBooking.save(error => {
+            const booking = {
+                _id: newBooking._id,
+                user_id: newBooking.user_id,
+                room_id: newBooking.room_id,
+                room_title: newBooking.room_title,
+                room_location: newBooking.room_location,
+                check_in: newBooking.check_in,
+                check_out: newBooking.check_out,
+                day: newBooking.day,
+                guest: newBooking.guest,
+                price: newBooking.price,
+                total: newBooking.total,
+                dateIn: new Date(newBooking.check_in).toDateString(),
+                dateOut: new Date(newBooking.check_out).toDateString()
+            }
+            res.render("bookingConfirm", {
+                user: req.session.user,
+                booking: booking,
+                layout: false
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+});
+
+app.post("/booking/confirm", checkLogin, (req, res) => {
+    const user_id = req.body.user_id;
+    const room_id = req.body.room_id;
+    const booking = new bookingModel({
+        _id: req.body._id,
+        user_id: user_id,
+        room_id: room_id,
+        check_in: req.body.check_in,
+        check_out: req.body.check_out,
+        day: req.body.day,
+        guest: req.body.guest,
+        room_title: req.body.room_title,
+        room_location: req.body.room_location,
+        price: req.body.price,
+        total: req.body.total
+    });
+    userModel.findOne({
+            _id: user_id
+        })
+        .exec()
+        .then(user => {
+            booking.save(error => {
                 if (error) {
-                    console.log(error);
-                    res.render('room-detail', {
-                        errorMsg: "Error occurred! - Please try again",
-                        layout: false
-                    });
+                    console.log('Error occurred! - ', error)
+                    res.redirect("/");
                 } else {
                     res.redirect("/dashboard");
+                    booking.dateIn = new Date(booking.check_in).toDateString();
+                    booking.dateOut = new Date(booking.check_out).toDateString();
+                    // send confirmation email
+                    var emailRenter = {
+                        from: process.env.EMAIL,
+                        to: user.email,
+                        subject: 'MinBnB - Successful Booking',
+                        html: '<h2> Hello ' + user.fName + ' ' + user.lName + ',' +
+                            '</h2><p>You are successfully booking a room at MinBnB. Below is your booking details: </p>' +
+                            `<p>Room: ${booking.room_title}</p>
+                            <p>Check in: ${booking.dateIn}</p>
+                            <p>Check out: ${booking.dateOut}</p>
+                            <p>Number of guests: ${booking.guest}</p>
+                            <p> Price: $${booking.price}</p>
+                            <p>Days: ${booking.day}</p>
+                            <p> Total: $${booking.total}</p>
+                            <p> Thank you for using our service</p>
+                            <p> Have a great trip, <p>
+                            <p>MinBnB</p>`
+                    };
+                    transporter.sendMail(emailRenter, (err, info) => {
+                        if (err) {
+                            console.log("ERROR: " + err);
+                        } else {
+                            console.log("SUCCESS: " + info.response);
+                        }
+                    });
                 }
             })
         })
         .catch(error => {
             console.log(error);
         });
+
 });
-// #endregion
-
 
 // #endregion
 
+// #region ERROR HANDLING
+app.use((req, res, next) => {
+    return next(createError(404, 'File not found'));
+});
 
+app.use((err, req, res, next) => {
+    res.locals.message = err.message;
+    const status = err.status || 500;
+    res.locals.status = status;
+    res.status(status);
+    res.render('error', {
+        layout: false
+    });
+});
 
+app.get("/error", (req, res) => {
+    res.render('error', {
+        layout: false
+    });
+});
 
+// #endregion
+// #endregion
 
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, onHttpStart);

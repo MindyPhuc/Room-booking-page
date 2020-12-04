@@ -1,0 +1,79 @@
+<!-- /* ******************************************
+ * WEB222NGG
+ * Assignment 2
+ * Name: Thi My Phuc Huynh (Mindy).
+ * Student ID: 149792186.
+ * Date: October 24, 2020
+ ********************************************
+ * images from unsplash.com | canva.com
+ ******************************************** */ -->
+
+<!doctype html>
+<html lang="en">
+  {{> head}}
+  <body>
+
+      {{> header user}}        
+        <!-- Form -->
+        <div class="sign-up-bg">
+            <div class="container p-4 w-50 my-5 bg-form">                
+                <h3 class="text-center py-3 form-header-custom">YOUR BOOKING DETAILS</h3>                     
+              
+                <form class="needs-validation" action="/booking/confirm" method="POST" novalidate>
+                     <input type="hidden" name="user_id" value="{{booking.user_id}}">
+                     <input type="hidden" name="room_id" value="{{booking.room_id}}">            
+                    <input type="hidden" name="_id" value="{{booking._id}}">
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Room</h5>
+                        <h5 class="col-4">{{booking.room_title}}</h5>
+                        <input type="hidden" name="room_title" value="{{booking.room_title}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">City</h5>
+                        <h5 class="col-4">{{booking.room_location}}</h5>
+                        <input type="hidden" name="room_location" value="{{booking.room_location}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Check in</h5>
+                        <h5 class="col-4">{{booking.dateIn}}</h5>
+                        <input type="hidden" name="check_in" value="{{booking.check_in}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Check out</h5>
+                        <h5 class="col-4">{{booking.dateOut}}</h5>
+                        <input type="hidden" name="check_out" value="{{booking.check_out}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Guest</h5>
+                        <h5 class="col-4">{{booking.guest}}</h5>
+                        <input type="hidden" name="guest" value="{{booking.guest}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Price</h5>
+                        <h5 class="col-4">${{booking.price}}</h5>
+                        <input type="hidden" name="price" value="{{booking.price}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Number of days</h5>
+                        <h5 class="col-4">{{booking.day}}</h5>
+                        <input type="hidden" name="day" value="{{booking.day}}">
+                    </div>
+                    <div class="row pl-6">
+                        <h5 class="col-3 font-weight-bold ml-5">Total</h5>
+                        <h5 class="col-4">${{booking.total}}</h5>
+                        <input type="hidden" name="total" value="{{booking.total}}">
+                    </div>                   
+                                                                                                
+                    <div class="row pl-6 justify-content-center mt-4">                        
+                        <a href="/dashboard" class="btn btn-warning mr-1" role="button">Cancel</a>
+                        <button type="submit" class="btn btn-custom" tabindex="3">Confirm</button>                        
+                    </div>                        
+                </form>
+                                           
+            </div>
+        </div>
+        
+        {{> footer}}
+        {{> script}}
+    </body>
+</html>

@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-6 text-left">                    
                     <span><i class="fas fa-star"></i> 4.5 |</span>
-                    <span> <i class="fas fa-medal"></i> Super Host |</span>
+                    <span> <i class="fas fa-medal"></i> Hosted by {{room.host}} |</span>
                     <span><a href="#" class="link"><i class="fas fa-map-marker-alt"></i>{{room.city}} </a></span>                                             
                 </div>
                 <div class="col-6 text-right">
@@ -29,36 +29,8 @@
                     <span><a href="#" class="link"><i class="far fa-heart"></i> Save</a></span>
                 </div>
             </div>                     
-        </div>   
-
-         <div class="container mb-2 mt-3"> 
-             <p> User: {{user._id}}</p>           
-            <h4 class="form-title"> Add dates for prices</h4>
-            <form class="needs-validation" action="/{{user._id}}/{{room._id}}/booking" method="post" novalidate>                            
-                <div class="form-row">
-                    <div class="form-group col-4">
-                        <label for="check_in" >CHECK-IN</label>
-                        <input id="check_in" name="check_in" type="date" class="form-control" tabindex="1" required>
-                        <div class="invalid-feedback">Please choose a date</div>
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="check_out">CHECKOUT</label>
-                        <input id="check_out" name="check_out" type="date" class="form-control" tabindex="2" required>
-                        <div class="invalid-feedback">Please choose a date</div>
-                    </div>                            
-                    <div class="form-group col-2">
-                        <label for="guest">GUESTS</label>
-                        <input id="guest" name="guest" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3" required>
-                        <div class="invalid-feedback">Please choose number of guests</div>
-                    </div>
-                    <div class="form-group col-2">
-                        <label for="submit" class="button-label">Submit</label>                              
-                        <input name="submit" type="submit" class="btn" id="book-now-btn" tabindex="4" value="Book Now">
-                    </div>
-                </div>                    
-            </form>      
-        </div>
-
+        </div> 
+        
         <!-- Room images -->
         <div class="container pt-4 pb-4">
             <div class="flex-row d-flex">
@@ -90,7 +62,68 @@
                 {{/if}}    
             </div>  
         </div>                                                                        
+        <!-- two column section -->
+        <div class="container mb-5">
+            <div class="row py-4">
+                <div class="col-lg-8 mb-4 my-lg-auto align-items-start">
+                    <div class="host-info">
+                        <div class="host-info-text">
+                            <h4>{{room.title}} hosted by {{room.host}}</h4>
+                            <p> {{room.guest}} guest | {{room.type}} | <b>${{room.price}}</b></p>                            
+                        </div>                        
+                    </div>
+                    <div class="room-info">
+                        <hr>
+                        
+                        <div class="room-features">
+                            {{#if room.clean}}
+                                <h5><i class="fas fa-hand-sparkles"></i> Enhanced Clean</h5>
+                            {{/if}}
+                            {{#if room.selfCheckin}}
+                                <h5><i class="fas fa-door-open"></i> Self Check-in</h5>
+                            {{/if}}
+                            {{#if room.cancelPolicy}}
+                            <h5><i class="far fa-calendar-times"></i> Cancellation Policy</h5>
+                            {{/if}}
+                        </div>
+                        <div class="room-desc"                        >
+                            {{room.description}}
+                        </div>                      
+                    </div>
+                </div>
                 
+                <!-- Book now form -->
+                <div class="col-lg-4 mb-4 my-lg-auto">
+                    <div class="book-now-wrapper">
+                        <h4> Add dates for prices</h4>
+                        <form class="needs-validation" action="/booking" method="post" novalidate>
+                            <input type="hidden"   name="user_id" value="{{user._id}}">
+                            <input type="hidden"  name="room_id" value="{{room._id}}"> 
+                            <input type="hidden" name="room_location" value="{{room.city}}">                   
+                            <div class="form-group">
+                                <label for="check_in">CHECK-IN</label>
+                                <input id="check_in" name="check_in" type="date" class="form-control" tabindex="1" required>
+                                <div class="invalid-feedback">Please choose a date</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="check_out">CHECKOUT</label>
+                                <input id="check_out" name="check_out" type="date" class="form-control" tabindex="2" required>
+                                <div class="invalid-feedback">Please choose a date</div>
+                            </div>                            
+                            <div class="form-group">
+                                <label for="guest">GUESTS</label>
+                                <input id="guest" name="guest" type="number" min="1" class="form-control" placeholder="Add guests" tabindex="3" required>
+                                <div class="invalid-feedback">Please choose number of guests</div>
+                            </div>
+                            <div class="form-group">                             
+                                <input name="search" type="submit" class="btn" id="book-now-btn" tabindex="4" value="Book Now">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         {{else}}
         <h3>No Detail</h3>
         {{/if}}

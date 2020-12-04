@@ -31,10 +31,10 @@
                 {{#if hasPhotos}} {{#each photos}}
                     <div class="col-12 col-sm-6 col-md-4 py-4">
                         <img src="/images/{{this}}" onerror="this.src='/photos/{{this}}'" alt="{{this}}" class="card-img-top photo"> 
-                        <a href="#modalDelete" class="trigger-btn" data-toggle="modal" data-target="#modalDelete">
+                        <a href="#" class="trigger-btn" data-toggle="modal" data-target="#modalDelete">
                             <img class="icon photo-icon" src="/images/trash-can.jpg"/>
                         </a>                   
-                        
+                        <p>Photos: {{this}}</p>
                     </div>
                     <div id="modalDelete" class="modal fade">
                         <div class="modal-dialog modal-confirm">
@@ -45,7 +45,7 @@
                                 </div>
                                 <form action="../../{{../room._id}}/photos/Delete/{{this}}" method="POST">
                                     <div class="modal-body">
-                                        <p>Do you really want to delete this record? This process cannot be undone.</p>
+                                        <p>Do you really want to delete this record {{this}}? This process cannot be undone.</p>
                                         
                                     </div>
                                     <div class="modal-footer justify-content-center">

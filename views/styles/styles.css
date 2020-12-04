@@ -295,7 +295,7 @@ h3 {
 .host-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding-right: 1rem;
 }
 
