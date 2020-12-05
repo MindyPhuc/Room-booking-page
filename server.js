@@ -1,9 +1,9 @@
 /* ******************************************
  * WEB222NGG
- * Assignment 2
+ * Assignment
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: October 23, 2020
+ * Date: 04 Dec 2020
  ******************************************** */
 
 /* #region REQUIRES */
@@ -364,12 +364,36 @@ app.get("/rooms/Edit/:roomID", checkAdmin, (req, res) => {
 
 app.post("/rooms/Delete/:roomID", checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
-    roomModel.deleteOne({
+    //remove all photos of the room first
+    roomModel.findOne({
             _id: roomID
         })
+        .lean()
+        .exec()
+        .then(room => {
+            const photos = room.photos;
+            _.each(photos, (photo) => {
+                fs.unlink(PHOTODIRECTORY + photo, (err) => {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    console.log("Removed file : " + photo);
+                });
+            });
+        })
         .then(() => {
-            res.redirect("/rooms");
-        });
+            // then delete the room from the database
+            roomModel.deleteOne({
+                    _id: roomID
+                })
+                .then(() => {
+                    res.redirect("/rooms");
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
 })
 
 app.post('/rooms/Edit', checkAdmin, upload.single("photo"), (req, res) => {
@@ -556,6 +580,13 @@ app.post("/:roomID/photos/Delete/:fileName", checkAdmin, (req, res) => {
         .exec()
         .then(room => {
             const photos = room.photos;
+            fs.unlink(PHOTODIRECTORY + photoFileName, (err) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log("Removed file : " + photoFileName);
+            });
+
             const newPhotos = photos.filter((value, index, arr) => {
                 return value !== photoFileName;
             });
