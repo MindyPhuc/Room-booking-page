@@ -77,9 +77,9 @@ app.use(clientSessions({
 const PHOTODIRECTORY = "./public/photos/";
 // make sure the photos folder exists
 // if not create it
-if (!fs.existsSync(PHOTODIRECTORY)) {
+/* if (!fs.existsSync(PHOTODIRECTORY)) {
     fs.mkdirSync(PHOTODIRECTORY);
-}
+} */
 // setup parameters for multer
 const STORAGE = multer.diskStorage({
     destination: PHOTODIRECTORY,
