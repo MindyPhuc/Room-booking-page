@@ -28,6 +28,8 @@ const bookingModel = require("./models/bookingModel");
 const {
     templateSettings
 } = require('underscore');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 12;
 
 /* #endregion */
 
@@ -207,39 +209,42 @@ app.post('/registration', validateUser, (req, res) => {
         .then(user => {
             if (!user) {
                 // add new user to the database
-                const newUser = new userModel({
-                    fName: req.body.fName,
-                    lName: req.body.lName,
-                    email: req.body.email,
-                    username: req.body.username,
-                    password: req.body.password
-                });
-                newUser.save(error => {
-                    if (error) {
-                        console.log('Error occurred! - ', error)
-                        res.render('registration', {
-                            errorMsg: "Error occurred! - Please try again",
-                            layout: false
+                bcrypt.hash(req.body.password, SALT_ROUNDS)
+                    .then(hashedPass => {
+                        const newUser = new userModel({
+                            fName: req.body.fName,
+                            lName: req.body.lName,
+                            email: req.body.email,
+                            username: req.body.username,
+                            password: hashedPass
                         });
-                    } else {
-                        res.redirect("login");
-                        // send confirmation email
-                        const emailRenter = {
-                            from: process.env.EMAIL,
-                            to: newUser.email,
-                            subject: 'MinBnB - Successful Sign up',
-                            html: `<p> Hello ${  newUser.fName  } ${  newUser.lName  }
-                                </p><p>Thank you for signing up at MinBnB</p>`
-                        };
-                        transporter.sendMail(emailRenter, (err, info) => {
-                            if (err) {
-                                console.log("ERROR: " + err);
+                        newUser.save(error => {
+                            if (error) {
+                                console.log('Error occurred! - ', error)
+                                res.render('registration', {
+                                    errorMsg: "Error occurred! - Please try again",
+                                    layout: false
+                                });
                             } else {
-                                console.log("SUCCESS: " + info.response);
+                                res.redirect("login");
+                                // send confirmation email
+                                const emailRenter = {
+                                    from: process.env.EMAIL,
+                                    to: newUser.email,
+                                    subject: 'MinBnB - Successful Sign up',
+                                    html: `<p> Hello ${  newUser.fName  } ${  newUser.lName  }
+                                    </p><p>Thank you for signing up at MinBnB</p>`
+                                };
+                                transporter.sendMail(emailRenter, (err, info) => {
+                                    if (err) {
+                                        console.log("ERROR: " + err);
+                                    } else {
+                                        console.log("SUCCESS: " + info.response);
+                                    }
+                                });
                             }
-                        });
-                    }
-                })
+                        })
+                    })
 
             } else { // either username or email existed
                 console.log("User exists");
@@ -286,19 +291,28 @@ app.post('/login', (req, res) => {
                     layout: false
                 });
             }
-            const passwordOK = user.comparePassword(password);
-            if (passwordOK) {
-                req.session.user = {
-                    _id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    fName: user.fName,
-                    lName: user.lName,
-                    isAdmin: user.isAdmin
-                };
-                res.redirect('dashboard');
+            // compare encrypted password
+            bcrypt.compare(password, user.password)
+                .then(passwordOK => {
+                    console.log("password check: ", passwordOK);
+                    if (passwordOK) {
+                        req.session.user = {
+                            _id: user._id,
+                            username: user.username,
+                            email: user.email,
+                            fName: user.fName,
+                            lName: user.lName,
+                            isAdmin: user.isAdmin
+                        };
+                        res.redirect('/dashboard');
+                    } else {
+                        res.render('login', {
+                            errorMsg: "Incorrect username or password. Please try again",
+                            layout: false
+                        });
+                    }
+                });
 
-            }
 
         })
         .catch(error => {

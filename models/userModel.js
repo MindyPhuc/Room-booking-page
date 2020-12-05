@@ -9,8 +9,7 @@
 // require mongoose and setup the Schema
 const mongoose = require("mongoose");
 const emailValidator = require("email-validator");
-const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 12;
+
 
 const Schema = mongoose.Schema;
 
@@ -65,24 +64,6 @@ const UserSchema = new Schema({
     default: false
   }
 });
-
-// encrypt password
-UserSchema.pre('save', async function preSave(next) {
-  const user = this;
-  if (!user.isModified('password')) return next();
-  try {
-    const hash = await bcrypt.hash(user.password, SALT_ROUNDS);
-    user.password = hash;
-    return next();
-  } catch (error) {
-    return next(error);
-  }
-});
-
-// compare the password
-UserSchema.methods.comparePassword = async function comparePassword(candidate) {
-  return bcrypt.compare(candidate, this.password);
-}
 
 // export userModel
 module.exports = mongoose.model('Users', UserSchema);
