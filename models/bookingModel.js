@@ -3,7 +3,7 @@
  * Assignment
  * Name: Thi My Phuc Huynh (Mindy).
  * Student ID: 149792186.
- * Date: Nov, 2020
+ * Date: Nov 2020
  ******************************************** */
 
 // require mongoose and setup the Schema
@@ -16,7 +16,7 @@ const {
 // use bluebird promise library with mongoose
 mongoose.Promise = require("bluebird");
 
-// define the BnB schema ======== CHECK the type of host, photo =================
+// define the Booking schema
 const BookingSchema = new Schema({
     "user_id": String,
     "room_id": String,

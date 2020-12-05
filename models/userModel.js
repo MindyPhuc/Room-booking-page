@@ -79,39 +79,10 @@ UserSchema.pre('save', async function preSave(next) {
   }
 });
 
+// compare the password
 UserSchema.methods.comparePassword = async function comparePassword(candidate) {
   return bcrypt.compare(candidate, this.password);
 }
 
 // export userModel
-// collection name: Users
 module.exports = mongoose.model('Users', UserSchema);
-
-
-//===================== CHECK ???????????? =========================
-/*
- //this function will find all the user   
-//there will be just a callback parameter  
-module.exports.getUser=(cb)=>{  
-  userModel.find((err,data)=>{  
-      if(err){  
-          console.log(err);  
-      }  
-      else{  
-          cb(null,data); 
-      }  
-  })  
-} */
-
-//this will add new user to the user collection  
-//this will take 2 parameter.newUser is object and cb is a callback  
-/*module.exports.addUser=(newUser,cb)=>{  
-  const user = new userModel({    
-    username: newUser.username,
-    fName: newUser.fName,
-    lName: newUser.lName,
-    email: newUser.email,
-    password: newUser.password   
-  })  
-  user.save(cb)  
-}*/

@@ -16,7 +16,7 @@ const {
 // use bluebird promise library with mongoose
 mongoose.Promise = require("bluebird");
 
-// define the BnB schema ======== CHECK the type of host, photo =================
+// define the Room schema
 const RoomSchema = new Schema({
     "title": String,
     "description": String,

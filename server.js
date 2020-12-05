@@ -69,7 +69,7 @@ app.use(bodyParser.json());
 
 app.use(clientSessions({
     cookieName: 'session',
-    secret: 'web322_assignment_session',
+    secret: process.env.SESSION_SECRET,
     duration: 2 * 60 * 1000,
     activeDuration: 3 * 60 * 1000
 }));
@@ -224,12 +224,12 @@ app.post('/registration', validateUser, (req, res) => {
                     } else {
                         res.redirect("login");
                         // send confirmation email
-                        var emailRenter = {
+                        const emailRenter = {
                             from: process.env.EMAIL,
                             to: newUser.email,
                             subject: 'MinBnB - Successful Sign up',
-                            html: '<p> Hello ' + newUser.fName + ' ' + newUser.lName + ',' +
-                                '</p><p>Thank you for signing up at MinBnB</p>'
+                            html: `<p> Hello ${  newUser.fName  } ${  newUser.lName  }
+                                </p><p>Thank you for signing up at MinBnB</p>`
                         };
                         transporter.sendMail(emailRenter, (err, info) => {
                             if (err) {
@@ -364,7 +364,7 @@ app.get("/rooms/Edit/:roomID", checkAdmin, (req, res) => {
 
 app.post("/rooms/Delete/:roomID", checkAdmin, (req, res) => {
     const roomID = req.params.roomID;
-    //remove all photos of the room first
+    // remove all photos of the room first
     roomModel.findOne({
             _id: roomID
         })
@@ -377,7 +377,7 @@ app.post("/rooms/Delete/:roomID", checkAdmin, (req, res) => {
                     if (err) {
                         return console.log(err);
                     }
-                    console.log("Removed file : " + photo);
+                    return console.log(`Removed file : ${  photo}`);
                 });
             });
         })
@@ -399,7 +399,7 @@ app.post("/rooms/Delete/:roomID", checkAdmin, (req, res) => {
 app.post('/rooms/Edit', checkAdmin, upload.single("photo"), (req, res) => {
 
     if (req.body.edit === "1") {
-        //editing
+        // editing
         const room = new roomModel({
             _id: req.body.ID,
             title: req.body.title,
@@ -463,7 +463,7 @@ app.post('/rooms/Edit', checkAdmin, upload.single("photo"), (req, res) => {
 
 // dynamic content - room-details page
 app.get('/rooms/:room_id', (req, res) => {
-    var id = req.params.room_id;
+    const id = req.params.room_id;
     if (!mongoose.Types.ObjectId.isValid(id)) return false;
     roomModel.findOne({
             _id: id
@@ -584,10 +584,10 @@ app.post("/:roomID/photos/Delete/:fileName", checkAdmin, (req, res) => {
                 if (err) {
                     return console.log(err);
                 }
-                console.log("Removed file : " + photoFileName);
+                return console.log(`Removed file : ${  photoFileName}`);
             });
 
-            const newPhotos = photos.filter((value, index, arr) => {
+            const newPhotos = photos.filter((value) => {
                 return value !== photoFileName;
             });
 
@@ -690,13 +690,13 @@ app.post("/booking/confirm", checkLogin, (req, res) => {
                     booking.dateIn = new Date(booking.check_in).toDateString();
                     booking.dateOut = new Date(booking.check_out).toDateString();
                     // send confirmation email
-                    var emailRenter = {
+                    const emailRenter = {
                         from: process.env.EMAIL,
                         to: user.email,
                         subject: 'MinBnB - Successful Booking',
-                        html: '<h2> Hello ' + user.fName + ' ' + user.lName + ',' +
-                            '</h2><p>You are successfully booking a room at MinBnB. Below is your booking details: </p>' +
-                            `<p>Room: ${booking.room_title}</p>
+                        html: `<h2> Hello ${  user.fName  } ${  user.lName  },
+                            </h2><p>You are successfully booking a room at MinBnB. Below is your booking details: </p>
+                            <p>Room: ${booking.room_title}</p>
                             <p>Check in: ${booking.dateIn}</p>
                             <p>Check out: ${booking.dateOut}</p>
                             <p>Number of guests: ${booking.guest}</p>
