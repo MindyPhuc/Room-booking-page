@@ -16,18 +16,17 @@
        
         <!-- Heading --> 
         {{#if room}}     
-        <div class="container pt-4 pb-4">
+        <div class="container pt-4 pb-1">
             <h3>{{room.title}}</h3>
             <div class="row">
-                <div class="col-6 text-left">                    
-                    <span><i class="fas fa-star"></i> 4.5 |</span>
-                    <span> <i class="fas fa-medal"></i> Hosted by {{room.host}} |</span>
-                    <span><a href="#" class="link"><i class="fas fa-map-marker-alt"></i>{{room.city}} </a></span>                                             
+                <div class="col-6 text-left pl-0">                 
+                    <span>Hosted by <b>{{room.host}}</b>  |  </span>
+                    <span><a href="#" class="link"><i class="fas fa-map-marker-alt"></i>  {{room.city}} </a></span>                                             
                 </div>
-                <div class="col-6 text-right">
+                {{!-- <div class="col-6 text-right">
                     <span><a href="#" class="link"><i class="fas fa-share-square"></i> Share</a></span>
                     <span><a href="#" class="link"><i class="far fa-heart"></i> Save</a></span>
-                </div>
+                </div> --}}
             </div>                     
         </div> 
         
@@ -64,11 +63,11 @@
         </div>                                                                        
         <!-- two column section -->
         <div class="container mb-5">
-            <div class="row py-4">
+            <div class="row pt-1 pb-3">
                 <div class="col-lg-8 mb-4 my-lg-auto align-items-start">
                     <div class="host-info">
                         <div class="host-info-text">
-                            <h4>{{room.title}} hosted by {{room.host}}</h4>
+                            <h4>{{room.title}} hosted by <b>{{room.host}}</b></h4>
                             <p> {{room.guest}} guest | {{room.type}} | <b>${{room.price}} CAD/night</b></p>                            
                         </div>                        
                     </div>
@@ -77,10 +76,13 @@
                         
                         <div class="room-features">
                             {{#if room.clean}}
+                                <br>
                                 <h5><i class="fas fa-hand-sparkles"></i> Enhanced Clean</h5>
+                                <br>
                             {{/if}}
                             {{#if room.selfCheckIn}}
                                 <h5><i class="fas fa-door-open"></i> Self Check-in</h5>
+                                <br>
                             {{/if}}                            
                         </div>
                         <div class="room-desc"                        >

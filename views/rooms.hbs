@@ -48,15 +48,14 @@
                                 </a>
                             {{/if}}
                             <div class="card-body">
-                                <h4 class="card-title">{{title}}</h4> 
-                                <p>Room ID: {{_id}}</p>                               
+                                <h4 class="card-title">{{title}}</h4>                                                               
                                 <p class="card-text">{{guest}} guest | {{type}} | <i>{{city}}</i></p>
                                 <p class="card-text"><b>${{price}} CAD</b>/night</p> 
 
                                 {{!-- admin options --}}
                                 {{#if ../user.isAdmin}}
                                 <div class="row justify-content-between">                                    
-                                    <a href="#modalDelete" class="trigger-btn" data-toggle="modal" data-target="#modalDelete">
+                                    <a href="#modalDelete" class="trigger-btn" data-toggle="modal" data-target=".modalDelete{{@index}}">
                                         <i class="fas fa-trash-alt icon"></i>
                                     </a>                              
                                    
@@ -66,7 +65,7 @@
                                         <i class="fas fa-edit icon"></i>
                                     </a>                                 
                                 </div>
-                                <div id="modalDelete" class="modal fade">
+                                <div class="modal fade modalDelete{{@index}}">
                                     <div class="modal-dialog modal-confirm">
                                         <div class="modal-content">
                                             <div class="modal-header flex-column"> 
@@ -75,8 +74,7 @@
                                             </div>
                                             <form action="/rooms/Delete/{{this._id}}" method="POST">
                                                 <div class="modal-body">
-                                                    <p>Do you really want to delete this record? This process cannot be undone.</p>
-                                                    <p>Room ID: {{this._id}}</p>
+                                                    <p>Do you really want to delete this record? This process cannot be undone.</p>                                                    
                                                 </div>
                                                 <div class="modal-footer justify-content-center">
                                                     <button type="button" class="btn btn-custom" data-dismiss="modal">Cancel</button>

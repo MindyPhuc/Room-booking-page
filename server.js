@@ -162,9 +162,10 @@ app.get("/registration", (req, res) => {
 
 app.get("/dashboard", checkLogin, (req, res) => {
     const user = req.session.user;
+    const id = user._id;
     if (user && !user.isAdmin) {
         bookingModel.find({
-                user_id: user._id
+                user_id: id
             })
             .lean()
             .exec()
@@ -295,10 +296,7 @@ app.post('/login', (req, res) => {
                     lName: user.lName,
                     isAdmin: user.isAdmin
                 };
-                res.render('dashboard', {
-                    user: req.session.user,
-                    layout: false
-                });
+                res.redirect('dashboard');
 
             }
 
@@ -470,6 +468,7 @@ app.post("/rooms/search", (req, res) => {
         .exec()
         .then(rooms => {
             res.render("rooms", {
+                user: req.session.user,
                 rooms: rooms,
                 hasRooms: !!rooms.length,
                 layout: false
